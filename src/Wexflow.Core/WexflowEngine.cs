@@ -15,12 +15,14 @@ namespace Wexflow.Core
         public string TempFolder { get; private set; }
         public string XsdPath { get; private set; }
         public Workflow[] Workflows { get; private set; }
+        public Dictionary<Guid,Workflow> RunningWorkflows { get; private set; }
 
         public WexflowEngine(string settingsFile) 
         {
             SettingsFile = settingsFile;
             LoadSettings();
             LoadWorkflows();
+            RunningWorkflows = new Dictionary<Guid, Workflow>();
         }
 
         void LoadSettings()
@@ -64,14 +66,19 @@ namespace Wexflow.Core
                 {
                     if (workflow.LaunchType == LaunchType.Startup)
                     {
-                        workflow.Start();
+                        var wfInstance = SpawnWorkflow(workflow.JobId);
+                        wfInstance.Start();    
                     }
                     else if (workflow.LaunchType == LaunchType.Periodic)
                     {
                         Action<object> callback = o =>
                         {
                             var wf = (Workflow)o;
-                            if (!wf.IsRunning) wf.Start();
+                            if (!wf.IsRunning)
+                            {
+                                var wfInstance = SpawnWorkflow(wf.JobId);
+                                wfInstance.Start();
+                            }
                         };
                         
                         var timer = new WexflowTimer(new TimerCallback(callback), workflow, workflow.Period);
@@ -86,27 +93,52 @@ namespace Wexflow.Core
             return Workflows.FirstOrDefault(wf => wf.Id == workflowId);
         }
 
-        public void StartWorkflow(int workflowId)
+        public Workflow SpawnWorkflow(int workflowId)
         {
-            var wf = GetWorkflow(workflowId);
+            var workflow = GetWorkflow(workflowId);
+            var wfInstance = workflow.CreateInstance();
+
+            RunningWorkflows.Add(wfInstance.InstanceId, wfInstance);
+
+            return wfInstance;
+        }
+
+        public Workflow GetWorkflowInstance(Guid wfInstanceId)
+        {
+            if(RunningWorkflows.ContainsKey(wfInstanceId))
+            {
+                return RunningWorkflows[wfInstanceId];
+            }
+            else
+            {
+                return null;
+            }
+        }
+
+        public Guid StartWorkflow(int workflowId)
+        {
+            var wf = SpawnWorkflow(workflowId);
 
             if (wf == null)
             {
                 Logger.ErrorFormat("Workflow {0} not found.", workflowId);
+                return Guid.Empty;
             }
             else 
             {
                 if (wf.IsEnabled) wf.Start();
             }
+
+            return wf.InstanceId;
         }
 
-        public void StopWorkflow(int workflowId)
+        public void StopWorkflow(Guid wfInstanceId)
         {
-            var wf = GetWorkflow(workflowId);
+            var wf = GetWorkflowInstance(wfInstanceId);
 
             if (wf == null)
             {
-                Logger.ErrorFormat("Workflow {0} not found.", workflowId);
+                Logger.ErrorFormat("Workflow {0} not found.", wfInstanceId);
             }
             else
             {
@@ -114,13 +146,13 @@ namespace Wexflow.Core
             }
         }
 
-        public void PauseWorkflow(int workflowId)
+        public void PauseWorkflow(Guid wfInstanceId)
         {
-            var wf = GetWorkflow(workflowId);
+            var wf = GetWorkflowInstance(wfInstanceId);
 
             if (wf == null)
             {
-                Logger.ErrorFormat("Workflow {0} not found.", workflowId);
+                Logger.ErrorFormat("Workflow {0} not found.", wfInstanceId);
             }
             else
             {
@@ -128,13 +160,13 @@ namespace Wexflow.Core
             }
         }
 
-        public void ResumeWorkflow(int workflowId)
+        public void ResumeWorkflow(Guid wfInstanceId)
         {
-            var wf = GetWorkflow(workflowId);
+            var wf = GetWorkflowInstance(wfInstanceId);
 
             if (wf == null)
             {
-                Logger.ErrorFormat("Workflow {0} not found.", workflowId);
+                Logger.ErrorFormat("Workflow {0} not found.", wfInstanceId);
             }
             else
             {
