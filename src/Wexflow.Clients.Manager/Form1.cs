@@ -5,6 +5,8 @@ using System.Windows.Forms;
 using System.Configuration;
 using Wexflow.Core.Service.Contracts;
 using Wexflow.Core.Service.Client;
+using System.Collections.Specialized;
+using System.Linq;
 
 namespace Wexflow.Clients.Manager
 {
@@ -32,6 +34,7 @@ namespace Wexflow.Clients.Manager
         bool _windowsServiceWasStopped;
         readonly Timer _timer = new Timer { Interval = 500 };
         Exception _exception;
+        List<string> _runningWorkflows = new List<string>();
 
         public Form1()
         {
@@ -146,16 +149,19 @@ namespace Wexflow.Clients.Manager
             var wfId = GetSlectedWorkflowId();
             if (wfId > -1)
             {
-                _wexflowServiceClient.StartWorkflow(wfId);
+                var wfInstanceID = _wexflowServiceClient.StartWorkflow(wfId);
+                _runningWorkflows.Add($"{wfId}:{wfInstanceID}");
             }
         }
 
         void buttonPause_Click(object sender, EventArgs e)
         {
             var wfId = GetSlectedWorkflowId();
-            if (wfId > -1)
+            var instanceString = _runningWorkflows.FirstOrDefault(s => s.Split(':')[0] == wfId.ToString()).Split(':')[1].ToString();
+            var wfInstanceId = Guid.Parse(instanceString);
+            if (wfInstanceId != Guid.Empty)
             {
-                _wexflowServiceClient.SuspendWorkflow(wfId);
+                _wexflowServiceClient.SuspendWorkflow(wfInstanceId);
                 UpdateButtons(wfId, true);
             }
         }
@@ -163,18 +169,22 @@ namespace Wexflow.Clients.Manager
         void buttonResume_Click(object sender, EventArgs e)
         {
             var wfId = GetSlectedWorkflowId();
-            if (wfId > -1)
+            var instanceString = _runningWorkflows.FirstOrDefault(s => s.Split(':')[0] == wfId.ToString()).Split(':')[1].ToString();
+            var wfInstanceId = Guid.Parse(instanceString);
+            if (wfInstanceId != Guid.Empty)
             {
-                _wexflowServiceClient.ResumeWorkflow(wfId);
+                _wexflowServiceClient.ResumeWorkflow(wfInstanceId);
             }
         }
 
         void buttonStop_Click(object sender, EventArgs e)
         {
             var wfId = GetSlectedWorkflowId();
-            if (wfId > -1)
+            var instanceString = _runningWorkflows.FirstOrDefault(s => s.Split(':')[0] == wfId.ToString()).Split(':')[1].ToString();
+            var wfInstanceId = Guid.Parse(instanceString);
+            if (wfInstanceId != Guid.Empty)
             {
-                _wexflowServiceClient.StopWorkflow(wfId);
+                _wexflowServiceClient.StopWorkflow(wfInstanceId);
                 UpdateButtons(wfId, true);
             }
         }
@@ -186,6 +196,11 @@ namespace Wexflow.Clients.Manager
             if (wfId > -1)
             {
                 var workflow = GetWorkflow(wfId);
+                if (_runningWorkflows.Count(wf => wf.Split(':')[0] == wfId.ToString()) > 0)
+                {
+                    var wfInstanceId = _runningWorkflows.FirstOrDefault(s => s.Split(':')[0] == wfId.ToString()).Split(':')[1];
+                    workflow = _wexflowServiceClient.GetWorkflowInstance(Guid.Parse(wfInstanceId.Replace("\"", "")));
+                }
 
 				_timer.Stop();
 
@@ -216,6 +231,11 @@ namespace Wexflow.Clients.Manager
             if (wfId > -1)
             {
                 var workflow = GetWorkflow(wfId);
+                if (_runningWorkflows.Count > 0 && _runningWorkflows.Count(s => s.Split(':')[0] == wfId.ToString()) > 0)
+                {
+                    var wfInstanceId = _runningWorkflows.FirstOrDefault(s => s.Split(':')[0] == wfId.ToString()).Split(':')[1].ToString();
+                    workflow = _wexflowServiceClient.GetWorkflowInstance(Guid.Parse(wfInstanceId.Replace("\"", "")));
+                }
 
                 if (workflow != null)
                 {
