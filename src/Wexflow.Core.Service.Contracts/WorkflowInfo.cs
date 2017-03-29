@@ -16,6 +16,8 @@ namespace Wexflow.Core.Service.Contracts
         [DataMember]
         public int Id { get; private set; }
         [DataMember]
+        public Guid InstanceId { get; private set; }
+        [DataMember]
         public string Name { get; private set; }
         [DataMember]
         public LaunchType LaunchType { get; private set; }
@@ -28,9 +30,10 @@ namespace Wexflow.Core.Service.Contracts
         [DataMember]
         public bool IsPaused { get; set; }
 
-        public WorkflowInfo(int id, string name, LaunchType launchType, bool isEnabled, string desc, bool isRunning, bool isPaused)
+        public WorkflowInfo(int id, Guid instanceId, string name, LaunchType launchType, bool isEnabled, string desc, bool isRunning, bool isPaused)
         {
             Id = id;
+            InstanceId = instanceId;
             Name = name;
             LaunchType = launchType;
             IsEnabled = isEnabled;
@@ -43,6 +46,12 @@ namespace Wexflow.Core.Service.Contracts
         {
             var wfi = (WorkflowInfo)obj;
             return wfi.Id.CompareTo(Id);
+        }
+
+        public int CompareInstanceTo(object obj)
+        {
+            var wfi = (WorkflowInfo)obj;
+            return wfi.InstanceId.CompareTo(InstanceId);
         }
     }
 }
