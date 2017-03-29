@@ -1,6 +1,7 @@
 ﻿using Wexflow.Core.Service.Contracts;
 using System.Net;
 using Newtonsoft.Json;
+using System;
 
 namespace Wexflow.Core.Service.Client
 {
@@ -22,28 +23,38 @@ namespace Wexflow.Core.Service.Client
             return workflows;
         }
 
-        public void StartWorkflow(int id)
+        public WorkflowInfo[] GetRunningWorkflows()
+        {
+            string uri = Uri + "/workflowinstances";
+            var webClient = new WebClient();
+            var response = webClient.DownloadString(uri);
+            var workflows = JsonConvert.DeserializeObject<WorkflowInfo[]>(response);
+            return workflows;
+        }
+
+        public Guid StartWorkflow(int id)
         {
             string uri = Uri + "/start/" + id;
             var webClient = new WebClient();
-            webClient.UploadString(uri, string.Empty);
+            var wfInstanceID = webClient.UploadString(uri, string.Empty);
+            return Guid.Parse(wfInstanceID.Replace("\"", ""));
         }
 
-        public void StopWorkflow(int id)
+        public void StopWorkflow(Guid id)
         {
             string uri = Uri + "/stop/" + id;
             var webClient = new WebClient();
             webClient.UploadString(uri, string.Empty);
         }
 
-        public void SuspendWorkflow(int id)
+        public void SuspendWorkflow(Guid id)
         {
             string uri = Uri + "/suspend/" + id;
             var webClient = new WebClient();
             webClient.UploadString(uri, string.Empty);
         }
 
-        public void ResumeWorkflow(int id)
+        public void ResumeWorkflow(Guid id)
         {
             string uri = Uri + "/resume/" + id;
             var webClient = new WebClient();
@@ -53,6 +64,15 @@ namespace Wexflow.Core.Service.Client
         public WorkflowInfo GetWorkflow(int id)
         {
             string uri = Uri + "/workflow/" + id;
+            var webClient = new WebClient();
+            var response = webClient.DownloadString(uri);
+            var workflow = JsonConvert.DeserializeObject<WorkflowInfo>(response);
+            return workflow;
+        }
+
+        public WorkflowInfo GetWorkflowInstance(Guid id)
+        {
+            string uri = Uri + "/workflowinstance/" + id;
             var webClient = new WebClient();
             var response = webClient.DownloadString(uri);
             var workflow = JsonConvert.DeserializeObject<WorkflowInfo>(response);
