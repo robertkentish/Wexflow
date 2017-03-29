@@ -17,6 +17,7 @@ namespace Wexflow.Core
     {
         public const int StartId = -1;
 
+        public Guid InstanceId { get; private set; }
         public string WorkflowFilePath { get; private set; }
         public string WexflowTempFolder { get; private set; }
         public string WorkflowTempFolder { get; private set; }
@@ -39,10 +40,35 @@ namespace Wexflow.Core
 
         Thread _thread;
 
+        public Workflow(Workflow wf)
+        {
+            JobId = wf.JobId;
+            InstanceId = wf.InstanceId;
+            Name = wf.Name;
+            Id = wf.Id;
+            Description = wf.Description;
+            IsEnabled = wf.IsEnabled;
+            IsPaused = wf.IsPaused;
+            IsRunning = wf.IsRunning;
+            WorkflowFilePath = wf.WorkflowFilePath;
+            WexflowTempFolder = wf.WexflowTempFolder;
+            WorkflowTempFolder = wf.WorkflowTempFolder;
+            XsdPath = wf.XsdPath;
+            FilesPerTask = wf.FilesPerTask; // Need to copy list ??
+            EntitiesPerTask = wf.EntitiesPerTask; // Need to copy list ??
+            ExecutionGraph = wf.ExecutionGraph;
+            Taks = wf.Taks;
+
+            XmlNamespaceManager = wf.XmlNamespaceManager;
+            LaunchType = wf.LaunchType;
+
+        }
+
         public Workflow(string path, string wexflowTempFolder, string xsdPath)
         {
             JobId = 1;
             _thread = null;
+            InstanceId = Guid.Empty;
             WorkflowFilePath = path;
             WexflowTempFolder = wexflowTempFolder;
             XsdPath = xsdPath;
@@ -153,6 +179,16 @@ namespace Wexflow.Core
 
                 ExecutionGraph = new Graph(taskNodes, onSuccess, onWarning, onError);
             }
+        }
+
+        public Workflow CreateInstance()
+        {
+            Workflow wfInstance = new Workflow(this)
+            {
+                InstanceId = Guid.NewGuid()
+            };
+
+            return wfInstance;
         }
 
         IEnumerable<Node> GetTaskNodes(XElement xExectionGraph)
@@ -348,16 +384,16 @@ namespace Wexflow.Core
             return xdoc.XPathSelectElement(string.Format("/wf:Workflow[@id='{0}']/wf:Settings/wf:Setting[@name='{1}']", Id, name), XmlNamespaceManager).Attribute("value").Value;
         }
 
-        public void Start()
+        public Thread Start()
         {
-            if (IsRunning) return;
+            if (IsRunning) return _thread;
 
             var thread = new Thread(() =>
                 {
                     try
                     {
                         IsRunning = true;
-                        Logger.InfoFormat("{0} Workflow started.", LogTag);
+                        Logger.InfoFormat($"{LogTag} Workflow instance started. Id = {InstanceId}");
 
                         // Create the temp folder
                         CreateTempFolder();
@@ -424,6 +460,8 @@ namespace Wexflow.Core
 
             _thread = thread;
             thread.Start();
+
+            return _thread;
         }
 
         IEnumerable<Task> NodesToTasks(IEnumerable<Node> nodes)
