@@ -1,4 +1,5 @@
-﻿using System.ServiceModel;
+﻿using System;
+using System.ServiceModel;
 using Wexflow.Core.Service.Contracts;
 
 namespace Wexflow.Clients.WindowsService
@@ -10,7 +11,10 @@ namespace Wexflow.Clients.WindowsService
         WorkflowInfo[] GetWorkflows();
 
         [OperationContract]
-        void StartWorkflow(string id);
+        WorkflowInfo[] GetRunningWorkflows();
+
+        [OperationContract]
+        Guid StartWorkflow(string id);
 
         [OperationContract]
         void StopWorkflow(string id);
@@ -23,5 +27,8 @@ namespace Wexflow.Clients.WindowsService
 
         [OperationContract]
         WorkflowInfo GetWorkflow(string id);
+
+        [OperationContract]
+        WorkflowInfo GetWorkflowInstance(string id);
     }
 }

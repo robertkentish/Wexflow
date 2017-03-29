@@ -2,6 +2,7 @@
 using System.ServiceModel;
 using Wexflow.Core.Service.Contracts;
 using System.ServiceModel.Web;
+using System;
 
 namespace Wexflow.Clients.WindowsService
 {
@@ -13,15 +14,23 @@ namespace Wexflow.Clients.WindowsService
             UriTemplate = "workflows")]
         public WorkflowInfo[] GetWorkflows()
         {
-            return WexflowWindowsService.WexflowEngine.Workflows.Select(wf => new WorkflowInfo(wf.Id, wf.Name, (LaunchType) wf.LaunchType, wf.IsEnabled, wf.Description, wf.IsRunning, wf.IsPaused)).ToArray();
+            return WexflowWindowsService.WexflowEngine.Workflows.Select(wf => new WorkflowInfo(wf.Id, wf.InstanceId, wf.Name, (LaunchType) wf.LaunchType, wf.IsEnabled, wf.Description, wf.IsRunning, wf.IsPaused)).ToArray();
+        }
+
+        [WebInvoke(Method = "GET",
+            ResponseFormat = WebMessageFormat.Json,
+            UriTemplate = "workflowinstances")]
+        public WorkflowInfo[] GetRunningWorkflows()
+        {
+            return WexflowWindowsService.WexflowEngine.RunningWorkflows.Select(i => new WorkflowInfo(i.Value.Id, i.Value.InstanceId, i.Value.Name, (LaunchType)i.Value.LaunchType, i.Value.IsEnabled, i.Value.Description, i.Value.IsRunning, i.Value.IsPaused)).ToArray();
         }
 
         [WebInvoke(Method = "POST",
             ResponseFormat = WebMessageFormat.Json,
             UriTemplate = "start/{id}")]
-        public void StartWorkflow(string id)
+        public Guid StartWorkflow(string id)
         {
-            WexflowWindowsService.WexflowEngine.StartWorkflow(int.Parse(id));
+            return WexflowWindowsService.WexflowEngine.StartWorkflow(int.Parse(id));
         }
 
         [WebInvoke(Method = "POST",
@@ -29,7 +38,7 @@ namespace Wexflow.Clients.WindowsService
             UriTemplate = "stop/{id}")]
         public void StopWorkflow(string id)
         {
-            WexflowWindowsService.WexflowEngine.StopWorkflow(int.Parse(id));
+            WexflowWindowsService.WexflowEngine.StopWorkflow(Guid.Parse(id));
         }
 
         [WebInvoke(Method = "POST",
@@ -37,7 +46,7 @@ namespace Wexflow.Clients.WindowsService
             UriTemplate = "suspend/{id}")]
         public void SuspendWorkflow(string id)
         {
-            WexflowWindowsService.WexflowEngine.PauseWorkflow(int.Parse(id));
+            WexflowWindowsService.WexflowEngine.PauseWorkflow(Guid.Parse(id));
         }
 
         [WebInvoke(Method = "POST",
@@ -45,7 +54,7 @@ namespace Wexflow.Clients.WindowsService
             UriTemplate = "resume/{id}")]
         public void ResumeWorkflow(string id)
         {
-            WexflowWindowsService.WexflowEngine.ResumeWorkflow(int.Parse(id));
+            WexflowWindowsService.WexflowEngine.ResumeWorkflow(Guid.Parse(id));
         }
 
         [WebInvoke(Method = "GET",
@@ -54,7 +63,22 @@ namespace Wexflow.Clients.WindowsService
         public WorkflowInfo GetWorkflow(string id)
         {
             var wf = WexflowWindowsService.WexflowEngine.GetWorkflow(int.Parse(id));
-			return new WorkflowInfo(wf.Id, wf.Name, (LaunchType)wf.LaunchType, wf.IsEnabled, wf.Description, wf.IsRunning, wf.IsPaused);
+            if (wf == null)
+                return null;
+
+            return new WorkflowInfo(wf.Id, wf.InstanceId, wf.Name, (LaunchType)wf.LaunchType, wf.IsEnabled, wf.Description, wf.IsRunning, wf.IsPaused);
+        }
+
+        [WebInvoke(Method = "GET",
+            ResponseFormat = WebMessageFormat.Json,
+            UriTemplate = "workflowinstance/{id}")]
+        public WorkflowInfo GetWorkflowInstance(string id)
+        {
+            var wf = WexflowWindowsService.WexflowEngine.GetWorkflowInstance(Guid.Parse(id));
+            if (wf == null)
+                return null;
+
+            return new WorkflowInfo(wf.Id, wf.InstanceId, wf.Name, (LaunchType)wf.LaunchType, wf.IsEnabled, wf.Description, wf.IsRunning, wf.IsPaused);
         }
     }
 }
