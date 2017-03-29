@@ -8,6 +8,7 @@ using Wexflow.Core.Service.Client;
 using Wexflow.Core.Service.Contracts;
 using System.Collections.ObjectModel;
 using System.Globalization;
+using System.Collections.Specialized;
 
 namespace Wexflow.Clients.Eto.Manager
 {
@@ -26,6 +27,7 @@ namespace Wexflow.Clients.Eto.Manager
         readonly WexflowServiceClient _wexflowServiceClient;
 		Dictionary<int, WorkflowInfo> _workflowsPerId;
         readonly UITimer _timer = new UITimer { Interval = 0.5 };
+        NameValueCollection _runningWorkflows = new NameValueCollection();
 
         public Form1()
         {
@@ -229,35 +231,39 @@ namespace Wexflow.Clients.Eto.Manager
 			var wfId = GetSlectedWorkflowId();
 			if (wfId > -1)
 			{
-				_wexflowServiceClient.StartWorkflow(wfId);
+				var wfInstanceID = _wexflowServiceClient.StartWorkflow(wfId);
+                _runningWorkflows.Add(wfId.ToString(), wfInstanceID.ToString());
 			}
 		}
 
 		void SuspendClick(object sender, EventArgs e)
 		{
-			var wfId = GetSlectedWorkflowId();
-			if (wfId > -1)
+            var wfId = GetSlectedWorkflowId();
+            var wfInstanceId = Guid.Parse(_runningWorkflows[wfId.ToString()].FirstOrDefault().ToString());
+			if (wfInstanceId != Guid.Empty)
 			{
-				_wexflowServiceClient.SuspendWorkflow(wfId);
+				_wexflowServiceClient.SuspendWorkflow(wfInstanceId);
 				UpdateButtons(wfId, true);
 			}
 		}
 
 		void ResumeClick(object sender, EventArgs e)
 		{
-			var wfId = GetSlectedWorkflowId();
-			if (wfId > -1)
-			{
-				_wexflowServiceClient.ResumeWorkflow(wfId);
+            var wfId = GetSlectedWorkflowId();
+            var wfInstanceId = Guid.Parse(_runningWorkflows[wfId.ToString()].FirstOrDefault().ToString());
+            if (wfInstanceId != Guid.Empty)
+            {
+				_wexflowServiceClient.ResumeWorkflow(wfInstanceId);
 			}
 		}
 
 		void StopClick(object sender, EventArgs e)
 		{
-			var wfId = GetSlectedWorkflowId();
-			if (wfId > -1)
-			{
-				_wexflowServiceClient.StopWorkflow(wfId);
+            var wfId = GetSlectedWorkflowId();
+            var wfInstanceId = Guid.Parse(_runningWorkflows[wfId.ToString()].FirstOrDefault().ToString());
+            if (wfInstanceId != Guid.Empty)
+            {
+				_wexflowServiceClient.StopWorkflow(wfInstanceId);
 				UpdateButtons(wfId, true);
 			}
 		}
