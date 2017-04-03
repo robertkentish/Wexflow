@@ -1,0 +1,3607 @@
+<?xml version="1.0" encoding="utf-8"?>
+<definitions xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:fcex="urn:FlexiCaptureExceptions" xmlns:tns="urn:http://www.abbyy.com/FlexiCapture" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" targetNamespace="urn:http://www.abbyy.com/FlexiCapture" xmlns="http://schemas.xmlsoap.org/wsdl/">
+  <types>
+    <s:schema attributeFormDefault="qualified" elementFormDefault="qualified" targetNamespace="urn:FlexiCaptureExceptions">
+      <s:element name="ServerFault">
+        <s:simpleType>
+          <s:restriction base="s:string" />
+        </s:simpleType>
+      </s:element>
+    </s:schema>
+    <s:schema attributeFormDefault="qualified" elementFormDefault="qualified" targetNamespace="urn:http://www.abbyy.com/FlexiCapture">
+      <s:import namespace="http://schemas.xmlsoap.org/soap/encoding/" />
+      <s:element name="OpenSession">
+        <s:complexType>
+          <s:sequence>
+            <s:element name="roleType" type="s:int" />
+            <s:element name="stationType" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="OpenSessionResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element name="sessionId" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetSessionInfo">
+        <s:complexType>
+          <s:sequence>
+            <s:element name="sessionId" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetSessionInfoResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element name="userId" type="s:int" />
+            <s:element name="userName" type="s:string" />
+            <s:element name="computerName" type="s:string" />
+            <s:element name="roleType" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetProjects">
+        <s:complexType>
+          <s:sequence />
+        </s:complexType>
+      </s:element>
+      <s:element name="GetProjectsResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element name="projects" nillable="true">
+              <s:complexType>
+                <s:sequence>
+                  <s:element minOccurs="0" maxOccurs="unbounded" name="Project" type="tns:Project" />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetProjectsForUser">
+        <s:complexType>
+          <s:sequence>
+            <s:element name="userId" type="s:int" />
+            <s:element name="roleType" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetProjectsForUserResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element name="projects" nillable="true">
+              <s:complexType>
+                <s:sequence>
+                  <s:element minOccurs="0" maxOccurs="unbounded" name="Project" type="tns:Project" />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetProcessingStages">
+        <s:complexType>
+          <s:sequence>
+            <s:element name="projectId" type="s:int" />
+            <s:element name="batchTypeId" type="s:int" />
+            <s:element name="stageType" type="s:int" />
+            <s:element name="stageName" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetProcessingStagesResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element name="stages" nillable="true">
+              <s:complexType>
+                <s:sequence>
+                  <s:element minOccurs="0" maxOccurs="unbounded" name="ProcessingStage" type="tns:ProcessingStage" />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetTemplates">
+        <s:complexType>
+          <s:sequence>
+            <s:element name="projectId" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetTemplatesResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element name="templates" nillable="true">
+              <s:complexType>
+                <s:sequence>
+                  <s:element minOccurs="0" maxOccurs="unbounded" name="Template" type="tns:Template" />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetBatchTypeTemplates">
+        <s:complexType>
+          <s:sequence>
+            <s:element name="projectId" type="s:int" />
+            <s:element name="batchTypeId" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetBatchTypeTemplatesResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element name="templateIds" nillable="true">
+              <s:complexType>
+                <s:sequence>
+                  <s:element minOccurs="0" maxOccurs="unbounded" name="int" type="s:int" />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CloseSession">
+        <s:complexType>
+          <s:sequence>
+            <s:element name="sessionId" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CloseSessionResponse">
+        <s:complexType>
+          <s:sequence />
+        </s:complexType>
+      </s:element>
+      <s:element name="OpenProject">
+        <s:complexType>
+          <s:sequence>
+            <s:element name="sessionId" type="s:int" />
+            <s:element name="projectNameOrGuid" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="OpenProjectResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element name="projectId" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CloseProject">
+        <s:complexType>
+          <s:sequence>
+            <s:element name="sessionId" type="s:int" />
+            <s:element name="projectId" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CloseProjectResponse">
+        <s:complexType>
+          <s:sequence />
+        </s:complexType>
+      </s:element>
+      <s:element name="GetBatchTypes">
+        <s:complexType>
+          <s:sequence>
+            <s:element name="projectId" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetBatchTypesResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element name="batchTypes" nillable="true">
+              <s:complexType>
+                <s:sequence>
+                  <s:element minOccurs="0" maxOccurs="unbounded" name="BatchType" type="tns:BatchType" />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetAllowedBatchTypes">
+        <s:complexType>
+          <s:sequence>
+            <s:element name="userId" type="s:int" />
+            <s:element name="roleType" type="s:int" />
+            <s:element name="projectId" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetAllowedBatchTypesResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element name="batchTypeIds" nillable="true">
+              <s:complexType>
+                <s:sequence>
+                  <s:element minOccurs="0" maxOccurs="unbounded" name="BatchTypeIdentity" type="tns:BatchTypeIdentity" />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="AddNewBatch">
+        <s:complexType>
+          <s:sequence>
+            <s:element name="sessionId" type="s:int" />
+            <s:element name="projectId" type="s:int" />
+            <s:element name="batch" type="tns:Batch" />
+            <s:element name="ownerId" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="AddNewBatchResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element name="batchId" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="DeleteBatch">
+        <s:complexType>
+          <s:sequence>
+            <s:element name="sessionId" type="s:int" />
+            <s:element name="batchId" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="DeleteBatchResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element name="result" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="AddNewImage">
+        <s:complexType>
+          <s:sequence>
+            <s:element name="sessionId" type="s:int" />
+            <s:element name="batchId" type="s:int" />
+            <s:element name="file" type="tns:File" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="AddNewImageResponse">
+        <s:complexType>
+          <s:sequence />
+        </s:complexType>
+      </s:element>
+      <s:element name="GetBatchIdsRange">
+        <s:complexType>
+          <s:sequence>
+            <s:element name="batchId" type="s:int" />
+            <s:element name="idsCount" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetBatchIdsRangeResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element name="rangeBegin" type="s:int" />
+            <s:element name="rangeEnd" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="AddNewDocument">
+        <s:complexType>
+          <s:sequence>
+            <s:element name="sessionId" type="s:int" />
+            <s:element name="document" type="tns:Document" />
+            <s:element name="file" type="tns:File" />
+            <s:element name="excludeFromAutomaticAssembling" type="s:boolean" />
+            <s:element name="previousItemId" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="AddNewDocumentResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element name="documentId" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="AddNewPage">
+        <s:complexType>
+          <s:sequence>
+            <s:element name="sessionId" type="s:int" />
+            <s:element name="batchId" type="s:int" />
+            <s:element name="documentId" type="s:int" />
+            <s:element name="previousItemId" type="s:int" />
+            <s:element name="page" type="tns:Page" />
+            <s:element name="file" type="tns:File" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="AddNewPageResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element name="pageId" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="MoveBatchItem">
+        <s:complexType>
+          <s:sequence>
+            <s:element name="sessionId" type="s:int" />
+            <s:element name="batchId" type="s:int" />
+            <s:element name="itemId" type="s:int" />
+            <s:element name="newParentId" type="s:int" />
+            <s:element name="previousItemId" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="MoveBatchItemResponse">
+        <s:complexType>
+          <s:sequence />
+        </s:complexType>
+      </s:element>
+      <s:element name="ProcessBatch">
+        <s:complexType>
+          <s:sequence>
+            <s:element name="sessionId" type="s:int" />
+            <s:element name="batchId" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ProcessBatchResponse">
+        <s:complexType>
+          <s:sequence />
+        </s:complexType>
+      </s:element>
+      <s:element name="GetBatchPercentCompleted">
+        <s:complexType>
+          <s:sequence>
+            <s:element name="batchId" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetBatchPercentCompletedResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element name="result" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetDocuments">
+        <s:complexType>
+          <s:sequence>
+            <s:element name="sessionId" type="s:int" />
+            <s:element name="batchId" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetDocumentsResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element name="documents" nillable="true">
+              <s:complexType>
+                <s:sequence>
+                  <s:element minOccurs="0" maxOccurs="unbounded" name="Document" type="tns:Document" />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetDocumentResultsList">
+        <s:complexType>
+          <s:sequence>
+            <s:element name="sessionId" type="s:int" />
+            <s:element name="batchId" type="s:int" />
+            <s:element name="documentId" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetDocumentResultsListResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element name="fileNames" nillable="true">
+              <s:complexType>
+                <s:sequence>
+                  <s:element minOccurs="0" maxOccurs="unbounded" name="string" type="s:string" />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="LoadDocumentResult">
+        <s:complexType>
+          <s:sequence>
+            <s:element name="sessionId" type="s:int" />
+            <s:element name="batchId" type="s:int" />
+            <s:element name="documentId" type="s:int" />
+            <s:element name="fileName" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="LoadDocumentResultResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element name="file" type="tns:File" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="IsSessionExists">
+        <s:complexType>
+          <s:sequence>
+            <s:element name="sessionId" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="IsSessionExistsResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element name="result" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetBatchType">
+        <s:complexType>
+          <s:sequence>
+            <s:element name="batchTypeId" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetBatchTypeResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element name="batchType" type="tns:BatchType" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetBatches">
+        <s:complexType>
+          <s:sequence>
+            <s:element name="projectId" type="s:int" />
+            <s:element name="sessionId" type="s:int" />
+            <s:element name="onlyPrivateBatches" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetBatchesResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element name="batches" nillable="true">
+              <s:complexType>
+                <s:sequence>
+                  <s:element minOccurs="0" maxOccurs="unbounded" name="Batch" type="tns:Batch" />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetBatch">
+        <s:complexType>
+          <s:sequence>
+            <s:element name="batchId" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetBatchResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element name="batch" type="tns:Batch" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UpdateBatch">
+        <s:complexType>
+          <s:sequence>
+            <s:element name="sessionId" type="s:int" />
+            <s:element name="batch" type="tns:Batch" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UpdateBatchResponse">
+        <s:complexType>
+          <s:sequence />
+        </s:complexType>
+      </s:element>
+      <s:element name="OpenBatch">
+        <s:complexType>
+          <s:sequence>
+            <s:element name="sessionId" type="s:int" />
+            <s:element name="batchId" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="OpenBatchResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element name="result" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CloseBatch">
+        <s:complexType>
+          <s:sequence>
+            <s:element name="sessionId" type="s:int" />
+            <s:element name="batchId" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CloseBatchResponse">
+        <s:complexType>
+          <s:sequence />
+        </s:complexType>
+      </s:element>
+      <s:element name="GetDocument">
+        <s:complexType>
+          <s:sequence>
+            <s:element name="sessionId" type="s:int" />
+            <s:element name="batchId" type="s:int" />
+            <s:element name="documentId" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetDocumentResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element name="document" type="tns:Document" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="DeletePage">
+        <s:complexType>
+          <s:sequence>
+            <s:element name="sessionId" type="s:int" />
+            <s:element name="batchId" type="s:int" />
+            <s:element name="documentId" type="s:int" />
+            <s:element name="pageId" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="DeletePageResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element name="result" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="DeleteDocument">
+        <s:complexType>
+          <s:sequence>
+            <s:element name="sessionId" type="s:int" />
+            <s:element name="batchId" type="s:int" />
+            <s:element name="documentId" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="DeleteDocumentResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element name="result" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ReplacePageImage">
+        <s:complexType>
+          <s:sequence>
+            <s:element name="sessionId" type="s:int" />
+            <s:element name="batchId" type="s:int" />
+            <s:element name="documentId" type="s:int" />
+            <s:element name="pageId" type="s:int" />
+            <s:element name="file" type="tns:File" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ReplacePageImageResponse">
+        <s:complexType>
+          <s:sequence />
+        </s:complexType>
+      </s:element>
+      <s:element name="SetDocumentProperties">
+        <s:complexType>
+          <s:sequence>
+            <s:element name="sessionId" type="s:int" />
+            <s:element name="batchId" type="s:int" />
+            <s:element name="documentId" type="s:int" />
+            <s:element name="properties" nillable="true">
+              <s:complexType>
+                <s:sequence>
+                  <s:element minOccurs="0" maxOccurs="unbounded" name="RegistrationProperty" type="tns:RegistrationProperty" />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SetDocumentPropertiesResponse">
+        <s:complexType>
+          <s:sequence />
+        </s:complexType>
+      </s:element>
+      <s:element name="LoadCustomFile">
+        <s:complexType>
+          <s:sequence>
+            <s:element name="fileName" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="LoadCustomFileResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element name="file" type="tns:File" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SaveCustomFile">
+        <s:complexType>
+          <s:sequence>
+            <s:element name="sessionId" type="s:int" />
+            <s:element name="file" type="tns:File" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SaveCustomFileResponse">
+        <s:complexType>
+          <s:sequence />
+        </s:complexType>
+      </s:element>
+      <s:element name="RemoveCustomFile">
+        <s:complexType>
+          <s:sequence>
+            <s:element name="sessionId" type="s:int" />
+            <s:element name="fileName" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="RemoveCustomFileResponse">
+        <s:complexType>
+          <s:sequence />
+        </s:complexType>
+      </s:element>
+      <s:element name="GetCustomFileNames">
+        <s:complexType>
+          <s:sequence />
+        </s:complexType>
+      </s:element>
+      <s:element name="GetCustomFileNamesResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element name="fileNames" nillable="true">
+              <s:complexType>
+                <s:sequence>
+                  <s:element minOccurs="0" maxOccurs="unbounded" name="string" type="s:string" />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="LoadAttachment">
+        <s:complexType>
+          <s:sequence>
+            <s:element name="sessionId" type="s:int" />
+            <s:element name="type" type="s:int" />
+            <s:element name="objectId" type="s:int" />
+            <s:element name="batchId" type="s:int" />
+            <s:element name="projectId" type="s:int" />
+            <s:element name="fileName" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="LoadAttachmentResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element name="file" type="tns:File" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SaveAttachment">
+        <s:complexType>
+          <s:sequence>
+            <s:element name="sessionId" type="s:int" />
+            <s:element name="type" type="s:int" />
+            <s:element name="objectId" type="s:int" />
+            <s:element name="batchId" type="s:int" />
+            <s:element name="projectId" type="s:int" />
+            <s:element name="file" type="tns:File" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SaveAttachmentResponse">
+        <s:complexType>
+          <s:sequence />
+        </s:complexType>
+      </s:element>
+      <s:element name="RemoveAttachment">
+        <s:complexType>
+          <s:sequence>
+            <s:element name="sessionId" type="s:int" />
+            <s:element name="type" type="s:int" />
+            <s:element name="objectId" type="s:int" />
+            <s:element name="batchId" type="s:int" />
+            <s:element name="projectId" type="s:int" />
+            <s:element name="fileName" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="RemoveAttachmentResponse">
+        <s:complexType>
+          <s:sequence />
+        </s:complexType>
+      </s:element>
+      <s:element name="GetAttachmentNames">
+        <s:complexType>
+          <s:sequence>
+            <s:element name="type" type="s:int" />
+            <s:element name="objectId" type="s:int" />
+            <s:element name="batchId" type="s:int" />
+            <s:element name="projectId" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetAttachmentNamesResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element name="fileNames" nillable="true">
+              <s:complexType>
+                <s:sequence>
+                  <s:element minOccurs="0" maxOccurs="unbounded" name="string" type="s:string" />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="WriteToLog">
+        <s:complexType>
+          <s:sequence>
+            <s:element name="clientTime" type="s:long" />
+            <s:element name="records" nillable="true">
+              <s:complexType>
+                <s:sequence>
+                  <s:element minOccurs="0" maxOccurs="unbounded" name="LogRecord" type="tns:LogRecord" />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="WriteToLogResponse">
+        <s:complexType>
+          <s:sequence />
+        </s:complexType>
+      </s:element>
+      <s:element name="GetAvailableTasks">
+        <s:complexType>
+          <s:sequence>
+            <s:element name="sessionId" type="s:int" />
+            <s:element name="projectId" type="s:int" />
+            <s:element name="processingStage" type="s:int" />
+            <s:element name="onlyPrivateBatches" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetAvailableTasksResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element name="tasks" type="tns:TaskList" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetAvailableTasksByStageId">
+        <s:complexType>
+          <s:sequence>
+            <s:element name="sessionId" type="s:int" />
+            <s:element name="projectId" type="s:int" />
+            <s:element name="stageIds" nillable="true">
+              <s:complexType>
+                <s:sequence>
+                  <s:element minOccurs="0" maxOccurs="unbounded" name="stageId" type="s:int" />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+            <s:element name="onlyPrivateBatches" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetAvailableTasksByStageIdResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element name="tasks" type="tns:TaskList" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetTaskInfo">
+        <s:complexType>
+          <s:sequence>
+            <s:element name="taskId" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetTaskInfoResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element name="task" type="tns:Task" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CreateTask">
+        <s:complexType>
+          <s:sequence>
+            <s:element name="sessionId" type="s:int" />
+            <s:element name="batchId" type="s:int" />
+            <s:element name="stageExternalId" type="s:int" />
+            <s:element name="priority" type="s:int" />
+            <s:element name="comment" type="s:string" />
+            <s:element name="userId" type="s:int" />
+            <s:element name="docIds">
+              <s:complexType>
+                <s:sequence>
+                  <s:element minOccurs="0" maxOccurs="unbounded" name="DocId" type="s:int" />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+            <s:element name="setAsCurrentTask" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CreateTaskResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element name="taskId" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="OpenTask">
+        <s:complexType>
+          <s:sequence>
+            <s:element name="sessionId" type="s:int" />
+            <s:element name="taskId" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="OpenTaskResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element name="result" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetTask">
+        <s:complexType>
+          <s:sequence>
+            <s:element name="sessionId" type="s:int" />
+            <s:element name="projectId" type="s:int" />
+            <s:element name="stageType" type="s:int" />
+            <s:element name="onlyPreprocessedTasks" type="s:boolean" />
+            <s:element name="onlyPrivateBatches" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetTaskResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element name="taskId" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetTaskByStageId">
+        <s:complexType>
+          <s:sequence>
+            <s:element name="sessionId" type="s:int" />
+            <s:element name="projectId" type="s:int" />
+            <s:element name="stageIds" nillable="true">
+              <s:complexType>
+                <s:sequence>
+                  <s:element minOccurs="0" maxOccurs="unbounded" name="stageId" type="s:int" />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+            <s:element name="onlyPreprocessedTasks" type="s:boolean" />
+            <s:element name="onlyPrivateBatches" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetTaskByStageIdResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element name="taskId" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetCurrentTask">
+        <s:complexType>
+          <s:sequence>
+            <s:element name="sessionId" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetCurrentTaskResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element name="taskId" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetTaskDocuments">
+        <s:complexType>
+          <s:sequence>
+            <s:element name="taskId" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetTaskDocumentsResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element name="documents" type="tns:TaskDocumentList" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CloseTask">
+        <s:complexType>
+          <s:sequence>
+            <s:element name="sessionId" type="s:int" />
+            <s:element name="taskId" type="s:int" />
+            <s:element name="stageType" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CloseTaskResponse">
+        <s:complexType>
+          <s:sequence />
+        </s:complexType>
+      </s:element>
+      <s:element name="CancelTask">
+        <s:complexType>
+          <s:sequence>
+            <s:element name="sessionId" type="s:int" />
+            <s:element name="taskId" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CancelTaskResponse">
+        <s:complexType>
+          <s:sequence />
+        </s:complexType>
+      </s:element>
+      <s:element name="PostponeTask">
+        <s:complexType>
+          <s:sequence>
+            <s:element name="sessionId" type="s:int" />
+            <s:element name="taskId" type="s:int" />
+            <s:element name="comment" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="PostponeTaskResponse">
+        <s:complexType>
+          <s:sequence />
+        </s:complexType>
+      </s:element>
+      <s:element name="GetPostponedTasks">
+        <s:complexType>
+          <s:sequence>
+            <s:element name="sessionId" type="s:int" />
+            <s:element name="projectId" type="s:int" />
+            <s:element name="processingStage" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetPostponedTasksResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element name="tasks" type="tns:TaskList" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SendTaskToException">
+        <s:complexType>
+          <s:sequence>
+            <s:element name="sessionId" type="s:int" />
+            <s:element name="taskId" type="s:int" />
+            <s:element name="comment" type="s:string" />
+            <s:element name="needPostprocessing" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SendTaskToExceptionResponse">
+        <s:complexType>
+          <s:sequence />
+        </s:complexType>
+      </s:element>
+      <s:element name="SendTask">
+        <s:complexType>
+          <s:sequence>
+            <s:element name="sessionId" type="s:int" />
+            <s:element name="taskId" type="s:int" />
+            <s:element name="stageId" type="s:int" />
+            <s:element name="comment" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SendTaskResponse">
+        <s:complexType>
+          <s:sequence />
+        </s:complexType>
+      </s:element>
+      <s:element name="GetNewTicket">
+        <s:complexType>
+          <s:sequence>
+            <s:element name="sessionId" type="s:int" />
+            <s:element name="stationType" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetNewTicketResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element name="result" type="s:boolean" />
+            <s:element name="ticketInfo" type="tns:TicketInfo" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UpdateTicket">
+        <s:complexType>
+          <s:sequence>
+            <s:element name="sessionId" type="s:int" />
+            <s:element name="ticketId" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UpdateTicketResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element name="result" type="s:boolean" />
+            <s:element name="ticketInfo" type="tns:TicketInfo" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ReleaseTicket">
+        <s:complexType>
+          <s:sequence>
+            <s:element name="sessionId" type="s:int" />
+            <s:element name="ticketId" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ReleaseTicketResponse">
+        <s:complexType>
+          <s:sequence />
+        </s:complexType>
+      </s:element>
+      <s:element name="HasRightsForBatchType">
+        <s:complexType>
+          <s:sequence>
+            <s:element name="sessionId" type="s:int" />
+            <s:element name="projectId" type="s:int" />
+            <s:element name="batchTypeId" type="s:int" />
+            <s:element name="roleType" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="HasRightsForBatchTypeResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element name="result" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetSettingValue">
+        <s:complexType>
+          <s:sequence>
+            <s:element name="userId" type="s:int" />
+            <s:element name="projectId" type="s:int" />
+            <s:element name="batchTypeId" type="s:int" />
+            <s:element name="settingName" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetSettingValueResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element name="value" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SetSettingValue">
+        <s:complexType>
+          <s:sequence>
+            <s:element name="userId" type="s:int" />
+            <s:element name="projectId" type="s:int" />
+            <s:element name="batchTypeId" type="s:int" />
+            <s:element name="settingName" type="s:string" />
+            <s:element name="settingValue" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SetSettingValueResponse">
+        <s:complexType>
+          <s:sequence />
+        </s:complexType>
+      </s:element>
+      <s:element name="FindUser">
+        <s:complexType>
+          <s:sequence>
+            <s:element name="userLogin" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="FindUserResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element name="userId" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="AddUserIfNotExist">
+        <s:complexType>
+          <s:sequence />
+        </s:complexType>
+      </s:element>
+      <s:element name="AddUserIfNotExistResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element name="userId" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetUser">
+        <s:complexType>
+          <s:sequence>
+            <s:element name="userId" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetUserResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element name="result" type="s:boolean" />
+            <s:element name="user" type="tns:User" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetUsers">
+        <s:complexType>
+          <s:sequence />
+        </s:complexType>
+      </s:element>
+      <s:element name="GetUsersResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element name="users" type="tns:UserList" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetAvailableUsers">
+        <s:complexType>
+          <s:sequence>
+            <s:element name="projectId" type="s:int" />
+            <s:element name="batchTypeId" type="s:int" />
+            <s:element name="stageExternalId" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetAvailableUsersResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element name="users" type="tns:UserList" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CreateRequest">
+        <s:complexType>
+          <s:sequence>
+            <s:element name="request" type="tns:ServerRequest" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CreateRequestResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element name="requestId" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="DeleteRequest">
+        <s:complexType>
+          <s:sequence>
+            <s:element name="requestId" type="s:int" />
+            <s:element name="sessionId" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="DeleteRequestResponse">
+        <s:complexType>
+          <s:sequence />
+        </s:complexType>
+      </s:element>
+      <s:element name="GetRequestStatus">
+        <s:complexType>
+          <s:sequence>
+            <s:element name="requestId" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetRequestStatusResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element name="status" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SetRequestStatus">
+        <s:complexType>
+          <s:sequence>
+            <s:element name="requestId" type="s:int" />
+            <s:element name="status" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SetRequestStatusResponse">
+        <s:complexType>
+          <s:sequence />
+        </s:complexType>
+      </s:element>
+      <s:element name="GetRequests">
+        <s:complexType>
+          <s:sequence>
+            <s:element name="batchId" type="s:int" />
+            <s:element name="taskId" type="s:int" />
+            <s:element name="sessionId" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetRequestsResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element name="requests" nillable="true">
+              <s:complexType>
+                <s:sequence>
+                  <s:element minOccurs="0" maxOccurs="unbounded" name="ServerRequest" type="tns:ServerRequest" />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetAvailableQueues">
+        <s:complexType>
+          <s:sequence>
+            <s:element name="sessionId" type="s:int" />
+            <s:element name="projectId" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetAvailableQueuesResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element name="queueInfo" nillable="true">
+              <s:complexType>
+                <s:sequence>
+                  <s:element minOccurs="0" maxOccurs="unbounded" name="Queue" type="tns:Queue" />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetUserStatistics">
+        <s:complexType>
+          <s:sequence>
+            <s:element name="userId" type="s:int" />
+            <s:element name="fromDate" type="s:long" />
+            <s:element name="toDate" type="s:long" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetUserStatisticsResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element name="userStat" type="tns:UserStatistics" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetRoles">
+        <s:complexType>
+          <s:sequence>
+            <s:element name="projectId" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetRolesResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element name="roles" nillable="true">
+              <s:complexType>
+                <s:sequence>
+                  <s:element minOccurs="0" maxOccurs="unbounded" name="Role" type="tns:Role" />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetUserRoles">
+        <s:complexType>
+          <s:sequence>
+            <s:element name="projectId" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetUserRolesResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element name="roles" nillable="true">
+              <s:complexType>
+                <s:sequence>
+                  <s:element minOccurs="0" maxOccurs="unbounded" name="int" type="s:int" />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SetTaskPriority">
+        <s:complexType>
+          <s:sequence>
+            <s:element name="sessionId" type="s:int" />
+            <s:element name="taskId" type="s:int" />
+            <s:element name="priority" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SetTaskPriorityResponse">
+        <s:complexType>
+          <s:sequence />
+        </s:complexType>
+      </s:element>
+      <s:element name="SetDocumentPriority">
+        <s:complexType>
+          <s:sequence>
+            <s:element name="sessionId" type="s:int" />
+            <s:element name="batchId" type="s:int" />
+            <s:element name="documentId" type="s:int" />
+            <s:element name="priority" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SetDocumentPriorityResponse">
+        <s:complexType>
+          <s:sequence />
+        </s:complexType>
+      </s:element>
+      <s:element name="GetCurrentUserIdentity">
+        <s:complexType>
+          <s:sequence />
+        </s:complexType>
+      </s:element>
+      <s:element name="GetCurrentUserIdentityResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element name="userIdentity" type="tns:UserIdentity" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="UserIdentity">
+        <s:sequence>
+          <s:element name="Name" type="s:string" />
+          <s:element name="Tenant" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="RegistrationPropertyDef">
+        <s:sequence>
+          <s:element name="Id" type="s:int" />
+          <s:element name="Name" type="s:string" />
+          <s:element name="IsRequired" type="s:boolean" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="Task">
+        <s:sequence>
+          <s:element name="Id" type="s:int" />
+          <s:element name="ProjectId" type="s:int" />
+          <s:element name="BatchTypeId" type="s:int" />
+          <s:element name="BatchId" type="s:int" />
+          <s:element name="Priority" type="s:int" />
+          <s:element name="Status" type="s:unsignedInt" />
+          <s:element name="CreationTime" type="s:long" />
+          <s:element name="ModificationTime" type="s:long" />
+          <s:element name="Comment" type="s:string" />
+          <s:element name="StageType" type="s:int" />
+          <s:element name="UserId" type="s:int" />
+          <s:element name="Flags" type="s:int" />
+          <s:element name="CreatorId" type="s:int" />
+          <s:element name="BatchName" type="s:string" />
+          <s:element name="StageExternalId" type="s:int" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="TaskList">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="Task" type="tns:Task" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="UserStatistics">
+        <s:sequence>
+          <s:element name="BatchesCount" type="s:int" />
+          <s:element name="DocumentsCount" type="s:int" />
+          <s:element name="PagesCount" type="s:int" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="Batch">
+        <s:sequence>
+          <s:element name="Id" type="s:int" />
+          <s:element name="Name" type="s:string" />
+          <s:element name="BatchTypeId" type="s:int" />
+          <s:element name="Priority" type="s:int" />
+          <s:element name="Description" type="s:string" />
+          <s:element name="HasAttachments" type="s:boolean" />
+          <s:element name="Properties" nillable="true">
+            <s:complexType>
+              <s:sequence>
+                <s:element minOccurs="0" maxOccurs="unbounded" name="RegistrationProperty" type="tns:RegistrationProperty" />
+              </s:sequence>
+            </s:complexType>
+          </s:element>
+          <s:element name="CreationDate" type="s:long" />
+          <s:element name="DocumentsCount" type="s:int" />
+          <s:element name="PagesCount" type="s:int" />
+          <s:element name="RecognizedSymbolsCount" type="s:int" />
+          <s:element name="VerificationSymbolsCount" type="s:int" />
+          <s:element name="UncertainSymbolsCount" type="s:int" />
+          <s:element name="AssembledDocumentsCount" type="s:int" />
+          <s:element name="RecognizedDocumentsCount" type="s:int" />
+          <s:element name="VerifiedDocumentsCount" type="s:int" />
+          <s:element name="ExportedDocumentsCount" type="s:int" />
+          <s:element name="StageExternalId" type="s:int" />
+          <s:element name="ErrorText" type="s:string" />
+          <s:element name="OwnerId" type="s:int" />
+          <s:element name="CreatorId" type="s:int" />
+          <s:element name="SLAStartDate" type="s:long" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="OrderItem">
+        <s:sequence>
+          <s:element name="Id" type="s:int" />
+          <s:element name="Index" type="s:int" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="Document">
+        <s:sequence>
+          <s:element name="Id" type="s:int" />
+          <s:element name="BatchId" type="s:int" />
+          <s:element name="ParentId" type="s:int" />
+          <s:element name="DocIndex" type="s:int" />
+          <s:element name="TemplateName" type="s:string" />
+          <s:element name="ProcessingStageType" type="s:int" />
+          <s:element name="Comment" type="s:string" />
+          <s:element name="Pages" nillable="true">
+            <s:complexType>
+              <s:sequence>
+                <s:element minOccurs="0" maxOccurs="unbounded" name="Page" type="tns:Page" />
+              </s:sequence>
+            </s:complexType>
+          </s:element>
+          <s:element name="IsProcessed" type="s:boolean" />
+          <s:element name="HasProcessingErrors" type="s:boolean" />
+          <s:element name="HasDocumentErrors" type="s:boolean" />
+          <s:element name="ErrorText" type="s:string" />
+          <s:element name="ExternalId" type="s:string" />
+          <s:element name="Properties" nillable="true">
+            <s:complexType>
+              <s:sequence>
+                <s:element minOccurs="0" maxOccurs="unbounded" name="RegistrationProperty" type="tns:RegistrationProperty" />
+              </s:sequence>
+            </s:complexType>
+          </s:element>
+          <s:element name="Priority" type="s:int" />
+          <s:element name="FileVersion" type="s:int" />
+          <s:element name="OwnerId" type="s:int" />
+          <s:element name="StageExternalId" type="s:int" />
+          <s:element name="TaskId" type="s:int" />
+          <s:element name="UncertainSymbols" type="s:int" />
+          <s:element name="VerificationSymbols" type="s:int" />
+          <s:element name="TotalSymbols" type="s:int" />
+          <s:element name="HasErrors" type="s:boolean" />
+          <s:element name="HasWarnings" type="s:boolean" />
+          <s:element name="HasAssemblingErrors" type="s:boolean" />
+          <s:element name="HasAttachments" type="s:boolean" />
+          <s:element name="Flags" type="s:int" />
+          <s:element name="ChildrenOrder" nillable="true">
+            <s:complexType>
+              <s:sequence>
+                <s:element minOccurs="0" maxOccurs="unbounded" name="OrderItem" type="tns:OrderItem" />
+              </s:sequence>
+            </s:complexType>
+          </s:element>
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="LogRecord">
+        <s:sequence>
+          <s:element name="Type" type="s:int" />
+          <s:element name="SessionId" type="s:int" />
+          <s:element name="UserId" type="s:int" />
+          <s:element name="MachineId" type="s:string" />
+          <s:element name="RoleId" type="s:int" />
+          <s:element name="TaskId" type="s:int" />
+          <s:element name="ProjectId" type="s:int" />
+          <s:element name="BatchId" type="s:int" />
+          <s:element name="DocumentId" type="s:int" />
+          <s:element name="Comment" type="s:string" />
+          <s:element name="Details" type="s:string" />
+          <s:element name="Time" type="s:long" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="LicenseCustomFeature">
+        <s:sequence>
+          <s:element name="Name" type="s:string" />
+          <s:element name="Value" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="TicketInfo">
+        <s:sequence>
+          <s:element name="TicketId" type="s:int" />
+          <s:element name="LicenseNumber" type="s:string" />
+          <s:element name="StationType" type="s:int" />
+          <s:element name="ExpirationDate" type="s:long" />
+          <s:element name="ExpirationPeriod" type="s:long" />
+          <s:element name="AvailableModules" type="s:unsignedInt" />
+          <s:element name="IssuedForSessionId" type="s:int" />
+          <s:element name="CustomFeatures" nillable="true">
+            <s:complexType>
+              <s:sequence>
+                <s:element minOccurs="0" maxOccurs="unbounded" name="LicenseCustomFeature" type="tns:LicenseCustomFeature" />
+              </s:sequence>
+            </s:complexType>
+          </s:element>
+          <s:element name="Signature" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="File">
+        <s:sequence>
+          <s:element name="Name" type="s:string" />
+          <s:element name="Bytes" type="s:base64Binary" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="Project">
+        <s:sequence>
+          <s:element name="Id" type="s:int" />
+          <s:element name="Name" type="s:string" />
+          <s:element name="Guid" type="s:string" />
+          <s:element name="IsTestProject" type="s:boolean" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ProcessingStage">
+        <s:sequence>
+          <s:element name="Id" type="s:int" />
+          <s:element name="ExternalId" type="s:int" />
+          <s:element name="ProjectId" type="s:int" />
+          <s:element name="BatchTypeId" type="s:int" />
+          <s:element name="Type" type="s:int" />
+          <s:element name="Name" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="RegistrationProperty">
+        <s:sequence>
+          <s:element name="Name" type="s:string" />
+          <s:element name="Value" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="BatchType">
+        <s:sequence>
+          <s:element name="Id" type="s:int" />
+          <s:element name="Name" type="s:string" />
+          <s:element name="Description" type="s:string" />
+          <s:element name="PropertyDefs" nillable="true">
+            <s:complexType>
+              <s:sequence>
+                <s:element minOccurs="0" maxOccurs="unbounded" name="RegistrationPropertyDef" type="tns:RegistrationPropertyDef" />
+              </s:sequence>
+            </s:complexType>
+          </s:element>
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="BatchTypeIdentity">
+        <s:sequence>
+          <s:element name="Id" type="s:int" />
+          <s:element name="ProjectId" type="s:int" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="TaskDocumentList">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="Document" type="tns:Document" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="Page">
+        <s:sequence>
+          <s:element name="Id" type="s:int" />
+          <s:element name="PageIndex" type="s:int" />
+          <s:element name="SourceFileName" type="s:string" />
+          <s:element name="SourcePageNumber" type="s:int" />
+          <s:element name="SourceType" type="s:int" />
+          <s:element name="SourceDetails" type="s:string" />
+          <s:element name="Comment" type="s:string" />
+          <s:element name="ErrorText" type="s:string" />
+          <s:element name="ExternalId" type="s:string" />
+          <s:element name="HasAttachments" type="s:boolean" />
+          <s:element name="UncertainSymbols" type="s:int" />
+          <s:element name="VerificationSymbols" type="s:int" />
+          <s:element name="TotalSymbols" type="s:int" />
+          <s:element name="FileVersion" type="s:int" />
+          <s:element name="Flags" type="s:int" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="User">
+        <s:sequence>
+          <s:element name="Id" type="s:int" />
+          <s:element name="Name" type="s:string" />
+          <s:element name="FullName" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="UserList">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="User" type="tns:User" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ServerRequest">
+        <s:sequence>
+          <s:element name="Id" type="s:int" />
+          <s:element name="BatchId" type="s:int" />
+          <s:element name="TaskId" type="s:int" />
+          <s:element name="SessionId" type="s:int" />
+          <s:element name="Status" type="s:int" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="Queue">
+        <s:sequence>
+          <s:element name="Name" type="s:string" />
+          <s:element name="StageType" type="s:int" />
+          <s:element name="TasksCount" type="s:int" />
+          <s:element name="UserTasksCount" type="s:int" />
+          <s:element name="PostponedTaskCount" type="s:int" />
+          <s:element name="IsEnabled" type="s:boolean" />
+          <s:element name="Id" type="s:int" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="Template">
+        <s:sequence>
+          <s:element name="Id" type="s:int" />
+          <s:element name="Name" type="s:string" />
+          <s:element name="Version" type="s:int" />
+          <s:element name="IsDisabled" type="s:boolean" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="Role">
+        <s:sequence>
+          <s:element name="Id" type="s:int" />
+          <s:element name="Type" type="s:int" />
+          <s:element name="Name" type="s:string" />
+          <s:element name="ProjectId" type="s:int" />
+          <s:element name="Attributes" type="s:int" />
+        </s:sequence>
+      </s:complexType>
+    </s:schema>
+  </types>
+  <message name="ServerFault">
+    <part name="parameters" element="fcex:ServerFault" />
+  </message>
+  <message name="OpenSessionIn">
+    <part name="parameters" element="tns:OpenSession" />
+  </message>
+  <message name="OpenSessionOut">
+    <part name="parameters" element="tns:OpenSessionResponse" />
+  </message>
+  <message name="GetSessionInfoIn">
+    <part name="parameters" element="tns:GetSessionInfo" />
+  </message>
+  <message name="GetSessionInfoOut">
+    <part name="parameters" element="tns:GetSessionInfoResponse" />
+  </message>
+  <message name="GetProjectsIn">
+    <part name="parameters" element="tns:GetProjects" />
+  </message>
+  <message name="GetProjectsOut">
+    <part name="parameters" element="tns:GetProjectsResponse" />
+  </message>
+  <message name="GetProjectsForUserIn">
+    <part name="parameters" element="tns:GetProjectsForUser" />
+  </message>
+  <message name="GetProjectsForUserOut">
+    <part name="parameters" element="tns:GetProjectsForUserResponse" />
+  </message>
+  <message name="GetProcessingStagesIn">
+    <part name="parameters" element="tns:GetProcessingStages" />
+  </message>
+  <message name="GetProcessingStagesOut">
+    <part name="parameters" element="tns:GetProcessingStagesResponse" />
+  </message>
+  <message name="GetTemplatesIn">
+    <part name="parameters" element="tns:GetTemplates" />
+  </message>
+  <message name="GetTemplatesOut">
+    <part name="parameters" element="tns:GetTemplatesResponse" />
+  </message>
+  <message name="GetBatchTypeTemplatesIn">
+    <part name="parameters" element="tns:GetBatchTypeTemplates" />
+  </message>
+  <message name="GetBatchTypeTemplatesOut">
+    <part name="parameters" element="tns:GetBatchTypeTemplatesResponse" />
+  </message>
+  <message name="CloseSessionIn">
+    <part name="parameters" element="tns:CloseSession" />
+  </message>
+  <message name="CloseSessionOut">
+    <part name="parameters" element="tns:CloseSessionResponse" />
+  </message>
+  <message name="OpenProjectIn">
+    <part name="parameters" element="tns:OpenProject" />
+  </message>
+  <message name="OpenProjectOut">
+    <part name="parameters" element="tns:OpenProjectResponse" />
+  </message>
+  <message name="CloseProjectIn">
+    <part name="parameters" element="tns:CloseProject" />
+  </message>
+  <message name="CloseProjectOut">
+    <part name="parameters" element="tns:CloseProjectResponse" />
+  </message>
+  <message name="GetBatchTypesIn">
+    <part name="parameters" element="tns:GetBatchTypes" />
+  </message>
+  <message name="GetBatchTypesOut">
+    <part name="parameters" element="tns:GetBatchTypesResponse" />
+  </message>
+  <message name="GetAllowedBatchTypesIn">
+    <part name="parameters" element="tns:GetAllowedBatchTypes" />
+  </message>
+  <message name="GetAllowedBatchTypesOut">
+    <part name="parameters" element="tns:GetAllowedBatchTypesResponse" />
+  </message>
+  <message name="AddNewBatchIn">
+    <part name="parameters" element="tns:AddNewBatch" />
+  </message>
+  <message name="AddNewBatchOut">
+    <part name="parameters" element="tns:AddNewBatchResponse" />
+  </message>
+  <message name="DeleteBatchIn">
+    <part name="parameters" element="tns:DeleteBatch" />
+  </message>
+  <message name="DeleteBatchOut">
+    <part name="parameters" element="tns:DeleteBatchResponse" />
+  </message>
+  <message name="AddNewImageIn">
+    <part name="parameters" element="tns:AddNewImage" />
+  </message>
+  <message name="AddNewImageOut">
+    <part name="parameters" element="tns:AddNewImageResponse" />
+  </message>
+  <message name="GetBatchIdsRangeIn">
+    <part name="parameters" element="tns:GetBatchIdsRange" />
+  </message>
+  <message name="GetBatchIdsRangeOut">
+    <part name="parameters" element="tns:GetBatchIdsRangeResponse" />
+  </message>
+  <message name="AddNewDocumentIn">
+    <part name="parameters" element="tns:AddNewDocument" />
+  </message>
+  <message name="AddNewDocumentOut">
+    <part name="parameters" element="tns:AddNewDocumentResponse" />
+  </message>
+  <message name="AddNewPageIn">
+    <part name="parameters" element="tns:AddNewPage" />
+  </message>
+  <message name="AddNewPageOut">
+    <part name="parameters" element="tns:AddNewPageResponse" />
+  </message>
+  <message name="MoveBatchItemIn">
+    <part name="parameters" element="tns:MoveBatchItem" />
+  </message>
+  <message name="MoveBatchItemOut">
+    <part name="parameters" element="tns:MoveBatchItemResponse" />
+  </message>
+  <message name="ProcessBatchIn">
+    <part name="parameters" element="tns:ProcessBatch" />
+  </message>
+  <message name="ProcessBatchOut">
+    <part name="parameters" element="tns:ProcessBatchResponse" />
+  </message>
+  <message name="GetBatchPercentCompletedIn">
+    <part name="parameters" element="tns:GetBatchPercentCompleted" />
+  </message>
+  <message name="GetBatchPercentCompletedOut">
+    <part name="parameters" element="tns:GetBatchPercentCompletedResponse" />
+  </message>
+  <message name="GetDocumentsIn">
+    <part name="parameters" element="tns:GetDocuments" />
+  </message>
+  <message name="GetDocumentsOut">
+    <part name="parameters" element="tns:GetDocumentsResponse" />
+  </message>
+  <message name="GetDocumentResultsListIn">
+    <part name="parameters" element="tns:GetDocumentResultsList" />
+  </message>
+  <message name="GetDocumentResultsListOut">
+    <part name="parameters" element="tns:GetDocumentResultsListResponse" />
+  </message>
+  <message name="LoadDocumentResultIn">
+    <part name="parameters" element="tns:LoadDocumentResult" />
+  </message>
+  <message name="LoadDocumentResultOut">
+    <part name="parameters" element="tns:LoadDocumentResultResponse" />
+  </message>
+  <message name="IsSessionExistsIn">
+    <part name="parameters" element="tns:IsSessionExists" />
+  </message>
+  <message name="IsSessionExistsOut">
+    <part name="parameters" element="tns:IsSessionExistsResponse" />
+  </message>
+  <message name="GetBatchTypeIn">
+    <part name="parameters" element="tns:GetBatchType" />
+  </message>
+  <message name="GetBatchTypeOut">
+    <part name="parameters" element="tns:GetBatchTypeResponse" />
+  </message>
+  <message name="GetBatchesIn">
+    <part name="parameters" element="tns:GetBatches" />
+  </message>
+  <message name="GetBatchesOut">
+    <part name="parameters" element="tns:GetBatchesResponse" />
+  </message>
+  <message name="GetBatchIn">
+    <part name="parameters" element="tns:GetBatch" />
+  </message>
+  <message name="GetBatchOut">
+    <part name="parameters" element="tns:GetBatchResponse" />
+  </message>
+  <message name="UpdateBatchIn">
+    <part name="parameters" element="tns:UpdateBatch" />
+  </message>
+  <message name="UpdateBatchOut">
+    <part name="parameters" element="tns:UpdateBatchResponse" />
+  </message>
+  <message name="OpenBatchIn">
+    <part name="parameters" element="tns:OpenBatch" />
+  </message>
+  <message name="OpenBatchOut">
+    <part name="parameters" element="tns:OpenBatchResponse" />
+  </message>
+  <message name="CloseBatchIn">
+    <part name="parameters" element="tns:CloseBatch" />
+  </message>
+  <message name="CloseBatchOut">
+    <part name="parameters" element="tns:CloseBatchResponse" />
+  </message>
+  <message name="GetDocumentIn">
+    <part name="parameters" element="tns:GetDocument" />
+  </message>
+  <message name="GetDocumentOut">
+    <part name="parameters" element="tns:GetDocumentResponse" />
+  </message>
+  <message name="DeletePageIn">
+    <part name="parameters" element="tns:DeletePage" />
+  </message>
+  <message name="DeletePageOut">
+    <part name="parameters" element="tns:DeletePageResponse" />
+  </message>
+  <message name="DeleteDocumentIn">
+    <part name="parameters" element="tns:DeleteDocument" />
+  </message>
+  <message name="DeleteDocumentOut">
+    <part name="parameters" element="tns:DeleteDocumentResponse" />
+  </message>
+  <message name="ReplacePageImageIn">
+    <part name="parameters" element="tns:ReplacePageImage" />
+  </message>
+  <message name="ReplacePageImageOut">
+    <part name="parameters" element="tns:ReplacePageImageResponse" />
+  </message>
+  <message name="SetDocumentPropertiesIn">
+    <part name="parameters" element="tns:SetDocumentProperties" />
+  </message>
+  <message name="SetDocumentPropertiesOut">
+    <part name="parameters" element="tns:SetDocumentPropertiesResponse" />
+  </message>
+  <message name="LoadCustomFileIn">
+    <part name="parameters" element="tns:LoadCustomFile" />
+  </message>
+  <message name="LoadCustomFileOut">
+    <part name="parameters" element="tns:LoadCustomFileResponse" />
+  </message>
+  <message name="SaveCustomFileIn">
+    <part name="parameters" element="tns:SaveCustomFile" />
+  </message>
+  <message name="SaveCustomFileOut">
+    <part name="parameters" element="tns:SaveCustomFileResponse" />
+  </message>
+  <message name="RemoveCustomFileIn">
+    <part name="parameters" element="tns:RemoveCustomFile" />
+  </message>
+  <message name="RemoveCustomFileOut">
+    <part name="parameters" element="tns:RemoveCustomFileResponse" />
+  </message>
+  <message name="GetCustomFileNamesIn">
+    <part name="parameters" element="tns:GetCustomFileNames" />
+  </message>
+  <message name="GetCustomFileNamesOut">
+    <part name="parameters" element="tns:GetCustomFileNamesResponse" />
+  </message>
+  <message name="LoadAttachmentIn">
+    <part name="parameters" element="tns:LoadAttachment" />
+  </message>
+  <message name="LoadAttachmentOut">
+    <part name="parameters" element="tns:LoadAttachmentResponse" />
+  </message>
+  <message name="SaveAttachmentIn">
+    <part name="parameters" element="tns:SaveAttachment" />
+  </message>
+  <message name="SaveAttachmentOut">
+    <part name="parameters" element="tns:SaveAttachmentResponse" />
+  </message>
+  <message name="RemoveAttachmentIn">
+    <part name="parameters" element="tns:RemoveAttachment" />
+  </message>
+  <message name="RemoveAttachmentOut">
+    <part name="parameters" element="tns:RemoveAttachmentResponse" />
+  </message>
+  <message name="GetAttachmentNamesIn">
+    <part name="parameters" element="tns:GetAttachmentNames" />
+  </message>
+  <message name="GetAttachmentNamesOut">
+    <part name="parameters" element="tns:GetAttachmentNamesResponse" />
+  </message>
+  <message name="WriteToLogIn">
+    <part name="parameters" element="tns:WriteToLog" />
+  </message>
+  <message name="WriteToLogOut">
+    <part name="parameters" element="tns:WriteToLogResponse" />
+  </message>
+  <message name="GetAvailableTasksIn">
+    <part name="parameters" element="tns:GetAvailableTasks" />
+  </message>
+  <message name="GetAvailableTasksOut">
+    <part name="parameters" element="tns:GetAvailableTasksResponse" />
+  </message>
+  <message name="GetAvailableTasksByStageIdIn">
+    <part name="parameters" element="tns:GetAvailableTasksByStageId" />
+  </message>
+  <message name="GetAvailableTasksByStageIdOut">
+    <part name="parameters" element="tns:GetAvailableTasksByStageIdResponse" />
+  </message>
+  <message name="GetTaskInfoIn">
+    <part name="parameters" element="tns:GetTaskInfo" />
+  </message>
+  <message name="GetTaskInfoOut">
+    <part name="parameters" element="tns:GetTaskInfoResponse" />
+  </message>
+  <message name="CreateTaskIn">
+    <part name="parameters" element="tns:CreateTask" />
+  </message>
+  <message name="CreateTaskOut">
+    <part name="parameters" element="tns:CreateTaskResponse" />
+  </message>
+  <message name="OpenTaskIn">
+    <part name="parameters" element="tns:OpenTask" />
+  </message>
+  <message name="OpenTaskOut">
+    <part name="parameters" element="tns:OpenTaskResponse" />
+  </message>
+  <message name="GetTaskIn">
+    <part name="parameters" element="tns:GetTask" />
+  </message>
+  <message name="GetTaskOut">
+    <part name="parameters" element="tns:GetTaskResponse" />
+  </message>
+  <message name="GetTaskByStageIdIn">
+    <part name="parameters" element="tns:GetTaskByStageId" />
+  </message>
+  <message name="GetTaskByStageIdOut">
+    <part name="parameters" element="tns:GetTaskByStageIdResponse" />
+  </message>
+  <message name="GetCurrentTaskIn">
+    <part name="parameters" element="tns:GetCurrentTask" />
+  </message>
+  <message name="GetCurrentTaskOut">
+    <part name="parameters" element="tns:GetCurrentTaskResponse" />
+  </message>
+  <message name="GetTaskDocumentsIn">
+    <part name="parameters" element="tns:GetTaskDocuments" />
+  </message>
+  <message name="GetTaskDocumentsOut">
+    <part name="parameters" element="tns:GetTaskDocumentsResponse" />
+  </message>
+  <message name="CloseTaskIn">
+    <part name="parameters" element="tns:CloseTask" />
+  </message>
+  <message name="CloseTaskOut">
+    <part name="parameters" element="tns:CloseTaskResponse" />
+  </message>
+  <message name="CancelTaskIn">
+    <part name="parameters" element="tns:CancelTask" />
+  </message>
+  <message name="CancelTaskOut">
+    <part name="parameters" element="tns:CancelTaskResponse" />
+  </message>
+  <message name="PostponeTaskIn">
+    <part name="parameters" element="tns:PostponeTask" />
+  </message>
+  <message name="PostponeTaskOut">
+    <part name="parameters" element="tns:PostponeTaskResponse" />
+  </message>
+  <message name="GetPostponedTasksIn">
+    <part name="parameters" element="tns:GetPostponedTasks" />
+  </message>
+  <message name="GetPostponedTasksOut">
+    <part name="parameters" element="tns:GetPostponedTasksResponse" />
+  </message>
+  <message name="SendTaskToExceptionIn">
+    <part name="parameters" element="tns:SendTaskToException" />
+  </message>
+  <message name="SendTaskToExceptionOut">
+    <part name="parameters" element="tns:SendTaskToExceptionResponse" />
+  </message>
+  <message name="SendTaskIn">
+    <part name="parameters" element="tns:SendTask" />
+  </message>
+  <message name="SendTaskOut">
+    <part name="parameters" element="tns:SendTaskResponse" />
+  </message>
+  <message name="GetNewTicketIn">
+    <part name="parameters" element="tns:GetNewTicket" />
+  </message>
+  <message name="GetNewTicketOut">
+    <part name="parameters" element="tns:GetNewTicketResponse" />
+  </message>
+  <message name="UpdateTicketIn">
+    <part name="parameters" element="tns:UpdateTicket" />
+  </message>
+  <message name="UpdateTicketOut">
+    <part name="parameters" element="tns:UpdateTicketResponse" />
+  </message>
+  <message name="ReleaseTicketIn">
+    <part name="parameters" element="tns:ReleaseTicket" />
+  </message>
+  <message name="ReleaseTicketOut">
+    <part name="parameters" element="tns:ReleaseTicketResponse" />
+  </message>
+  <message name="HasRightsForBatchTypeIn">
+    <part name="parameters" element="tns:HasRightsForBatchType" />
+  </message>
+  <message name="HasRightsForBatchTypeOut">
+    <part name="parameters" element="tns:HasRightsForBatchTypeResponse" />
+  </message>
+  <message name="GetSettingValueIn">
+    <part name="parameters" element="tns:GetSettingValue" />
+  </message>
+  <message name="GetSettingValueOut">
+    <part name="parameters" element="tns:GetSettingValueResponse" />
+  </message>
+  <message name="SetSettingValueIn">
+    <part name="parameters" element="tns:SetSettingValue" />
+  </message>
+  <message name="SetSettingValueOut">
+    <part name="parameters" element="tns:SetSettingValueResponse" />
+  </message>
+  <message name="FindUserIn">
+    <part name="parameters" element="tns:FindUser" />
+  </message>
+  <message name="FindUserOut">
+    <part name="parameters" element="tns:FindUserResponse" />
+  </message>
+  <message name="AddUserIfNotExistIn">
+    <part name="parameters" element="tns:AddUserIfNotExist" />
+  </message>
+  <message name="AddUserIfNotExistOut">
+    <part name="parameters" element="tns:AddUserIfNotExistResponse" />
+  </message>
+  <message name="GetUserIn">
+    <part name="parameters" element="tns:GetUser" />
+  </message>
+  <message name="GetUserOut">
+    <part name="parameters" element="tns:GetUserResponse" />
+  </message>
+  <message name="GetUsersIn">
+    <part name="parameters" element="tns:GetUsers" />
+  </message>
+  <message name="GetUsersOut">
+    <part name="parameters" element="tns:GetUsersResponse" />
+  </message>
+  <message name="GetAvailableUsersIn">
+    <part name="parameters" element="tns:GetAvailableUsers" />
+  </message>
+  <message name="GetAvailableUsersOut">
+    <part name="parameters" element="tns:GetAvailableUsersResponse" />
+  </message>
+  <message name="CreateRequestIn">
+    <part name="parameters" element="tns:CreateRequest" />
+  </message>
+  <message name="CreateRequestOut">
+    <part name="parameters" element="tns:CreateRequestResponse" />
+  </message>
+  <message name="DeleteRequestIn">
+    <part name="parameters" element="tns:DeleteRequest" />
+  </message>
+  <message name="DeleteRequestOut">
+    <part name="parameters" element="tns:DeleteRequestResponse" />
+  </message>
+  <message name="GetRequestStatusIn">
+    <part name="parameters" element="tns:GetRequestStatus" />
+  </message>
+  <message name="GetRequestStatusOut">
+    <part name="parameters" element="tns:GetRequestStatusResponse" />
+  </message>
+  <message name="SetRequestStatusIn">
+    <part name="parameters" element="tns:SetRequestStatus" />
+  </message>
+  <message name="SetRequestStatusOut">
+    <part name="parameters" element="tns:SetRequestStatusResponse" />
+  </message>
+  <message name="GetRequestsIn">
+    <part name="parameters" element="tns:GetRequests" />
+  </message>
+  <message name="GetRequestsOut">
+    <part name="parameters" element="tns:GetRequestsResponse" />
+  </message>
+  <message name="GetAvailableQueuesIn">
+    <part name="parameters" element="tns:GetAvailableQueues" />
+  </message>
+  <message name="GetAvailableQueuesOut">
+    <part name="parameters" element="tns:GetAvailableQueuesResponse" />
+  </message>
+  <message name="GetUserStatisticsIn">
+    <part name="parameters" element="tns:GetUserStatistics" />
+  </message>
+  <message name="GetUserStatisticsOut">
+    <part name="parameters" element="tns:GetUserStatisticsResponse" />
+  </message>
+  <message name="GetRolesIn">
+    <part name="parameters" element="tns:GetRoles" />
+  </message>
+  <message name="GetRolesOut">
+    <part name="parameters" element="tns:GetRolesResponse" />
+  </message>
+  <message name="GetUserRolesIn">
+    <part name="parameters" element="tns:GetUserRoles" />
+  </message>
+  <message name="GetUserRolesOut">
+    <part name="parameters" element="tns:GetUserRolesResponse" />
+  </message>
+  <message name="SetTaskPriorityIn">
+    <part name="parameters" element="tns:SetTaskPriority" />
+  </message>
+  <message name="SetTaskPriorityOut">
+    <part name="parameters" element="tns:SetTaskPriorityResponse" />
+  </message>
+  <message name="SetDocumentPriorityIn">
+    <part name="parameters" element="tns:SetDocumentPriority" />
+  </message>
+  <message name="SetDocumentPriorityOut">
+    <part name="parameters" element="tns:SetDocumentPriorityResponse" />
+  </message>
+  <message name="GetCurrentUserIdentityIn">
+    <part name="parameters" element="tns:GetCurrentUserIdentity" />
+  </message>
+  <message name="GetCurrentUserIdentityOut">
+    <part name="parameters" element="tns:GetCurrentUserIdentityResponse" />
+  </message>
+  <portType name="FlexiCaptureWebServiceSoap">
+    <operation name="OpenSession">
+      <input message="tns:OpenSessionIn" />
+      <output message="tns:OpenSessionOut" />
+      <fault name="ServerFault" message="tns:ServerFault" />
+    </operation>
+    <operation name="GetSessionInfo">
+      <input message="tns:GetSessionInfoIn" />
+      <output message="tns:GetSessionInfoOut" />
+      <fault name="ServerFault" message="tns:ServerFault" />
+    </operation>
+    <operation name="GetProjects">
+      <input message="tns:GetProjectsIn" />
+      <output message="tns:GetProjectsOut" />
+      <fault name="ServerFault" message="tns:ServerFault" />
+    </operation>
+    <operation name="GetProjectsForUser">
+      <input message="tns:GetProjectsForUserIn" />
+      <output message="tns:GetProjectsForUserOut" />
+      <fault name="ServerFault" message="tns:ServerFault" />
+    </operation>
+    <operation name="GetProcessingStages">
+      <input message="tns:GetProcessingStagesIn" />
+      <output message="tns:GetProcessingStagesOut" />
+      <fault name="ServerFault" message="tns:ServerFault" />
+    </operation>
+    <operation name="GetTemplates">
+      <input message="tns:GetTemplatesIn" />
+      <output message="tns:GetTemplatesOut" />
+      <fault name="ServerFault" message="tns:ServerFault" />
+    </operation>
+    <operation name="GetBatchTypeTemplates">
+      <input message="tns:GetBatchTypeTemplatesIn" />
+      <output message="tns:GetBatchTypeTemplatesOut" />
+      <fault name="ServerFault" message="tns:ServerFault" />
+    </operation>
+    <operation name="CloseSession">
+      <input message="tns:CloseSessionIn" />
+      <output message="tns:CloseSessionOut" />
+      <fault name="ServerFault" message="tns:ServerFault" />
+    </operation>
+    <operation name="OpenProject">
+      <input message="tns:OpenProjectIn" />
+      <output message="tns:OpenProjectOut" />
+      <fault name="ServerFault" message="tns:ServerFault" />
+    </operation>
+    <operation name="CloseProject">
+      <input message="tns:CloseProjectIn" />
+      <output message="tns:CloseProjectOut" />
+      <fault name="ServerFault" message="tns:ServerFault" />
+    </operation>
+    <operation name="GetBatchTypes">
+      <input message="tns:GetBatchTypesIn" />
+      <output message="tns:GetBatchTypesOut" />
+      <fault name="ServerFault" message="tns:ServerFault" />
+    </operation>
+    <operation name="GetAllowedBatchTypes">
+      <input message="tns:GetAllowedBatchTypesIn" />
+      <output message="tns:GetAllowedBatchTypesOut" />
+      <fault name="ServerFault" message="tns:ServerFault" />
+    </operation>
+    <operation name="AddNewBatch">
+      <input message="tns:AddNewBatchIn" />
+      <output message="tns:AddNewBatchOut" />
+      <fault name="ServerFault" message="tns:ServerFault" />
+    </operation>
+    <operation name="DeleteBatch">
+      <input message="tns:DeleteBatchIn" />
+      <output message="tns:DeleteBatchOut" />
+      <fault name="ServerFault" message="tns:ServerFault" />
+    </operation>
+    <operation name="AddNewImage">
+      <input message="tns:AddNewImageIn" />
+      <output message="tns:AddNewImageOut" />
+      <fault name="ServerFault" message="tns:ServerFault" />
+    </operation>
+    <operation name="GetBatchIdsRange">
+      <input message="tns:GetBatchIdsRangeIn" />
+      <output message="tns:GetBatchIdsRangeOut" />
+      <fault name="ServerFault" message="tns:ServerFault" />
+    </operation>
+    <operation name="AddNewDocument">
+      <input message="tns:AddNewDocumentIn" />
+      <output message="tns:AddNewDocumentOut" />
+      <fault name="ServerFault" message="tns:ServerFault" />
+    </operation>
+    <operation name="AddNewPage">
+      <input message="tns:AddNewPageIn" />
+      <output message="tns:AddNewPageOut" />
+      <fault name="ServerFault" message="tns:ServerFault" />
+    </operation>
+    <operation name="MoveBatchItem">
+      <input message="tns:MoveBatchItemIn" />
+      <output message="tns:MoveBatchItemOut" />
+      <fault name="ServerFault" message="tns:ServerFault" />
+    </operation>
+    <operation name="ProcessBatch">
+      <input message="tns:ProcessBatchIn" />
+      <output message="tns:ProcessBatchOut" />
+      <fault name="ServerFault" message="tns:ServerFault" />
+    </operation>
+    <operation name="GetBatchPercentCompleted">
+      <input message="tns:GetBatchPercentCompletedIn" />
+      <output message="tns:GetBatchPercentCompletedOut" />
+      <fault name="ServerFault" message="tns:ServerFault" />
+    </operation>
+    <operation name="GetDocuments">
+      <input message="tns:GetDocumentsIn" />
+      <output message="tns:GetDocumentsOut" />
+      <fault name="ServerFault" message="tns:ServerFault" />
+    </operation>
+    <operation name="GetDocumentResultsList">
+      <input message="tns:GetDocumentResultsListIn" />
+      <output message="tns:GetDocumentResultsListOut" />
+      <fault name="ServerFault" message="tns:ServerFault" />
+    </operation>
+    <operation name="LoadDocumentResult">
+      <input message="tns:LoadDocumentResultIn" />
+      <output message="tns:LoadDocumentResultOut" />
+      <fault name="ServerFault" message="tns:ServerFault" />
+    </operation>
+    <operation name="IsSessionExists">
+      <input message="tns:IsSessionExistsIn" />
+      <output message="tns:IsSessionExistsOut" />
+      <fault name="ServerFault" message="tns:ServerFault" />
+    </operation>
+    <operation name="GetBatchType">
+      <input message="tns:GetBatchTypeIn" />
+      <output message="tns:GetBatchTypeOut" />
+      <fault name="ServerFault" message="tns:ServerFault" />
+    </operation>
+    <operation name="GetBatches">
+      <input message="tns:GetBatchesIn" />
+      <output message="tns:GetBatchesOut" />
+      <fault name="ServerFault" message="tns:ServerFault" />
+    </operation>
+    <operation name="GetBatch">
+      <input message="tns:GetBatchIn" />
+      <output message="tns:GetBatchOut" />
+      <fault name="ServerFault" message="tns:ServerFault" />
+    </operation>
+    <operation name="UpdateBatch">
+      <input message="tns:UpdateBatchIn" />
+      <output message="tns:UpdateBatchOut" />
+      <fault name="ServerFault" message="tns:ServerFault" />
+    </operation>
+    <operation name="OpenBatch">
+      <input message="tns:OpenBatchIn" />
+      <output message="tns:OpenBatchOut" />
+      <fault name="ServerFault" message="tns:ServerFault" />
+    </operation>
+    <operation name="CloseBatch">
+      <input message="tns:CloseBatchIn" />
+      <output message="tns:CloseBatchOut" />
+      <fault name="ServerFault" message="tns:ServerFault" />
+    </operation>
+    <operation name="GetDocument">
+      <input message="tns:GetDocumentIn" />
+      <output message="tns:GetDocumentOut" />
+      <fault name="ServerFault" message="tns:ServerFault" />
+    </operation>
+    <operation name="DeletePage">
+      <input message="tns:DeletePageIn" />
+      <output message="tns:DeletePageOut" />
+      <fault name="ServerFault" message="tns:ServerFault" />
+    </operation>
+    <operation name="DeleteDocument">
+      <input message="tns:DeleteDocumentIn" />
+      <output message="tns:DeleteDocumentOut" />
+      <fault name="ServerFault" message="tns:ServerFault" />
+    </operation>
+    <operation name="ReplacePageImage">
+      <input message="tns:ReplacePageImageIn" />
+      <output message="tns:ReplacePageImageOut" />
+      <fault name="ServerFault" message="tns:ServerFault" />
+    </operation>
+    <operation name="SetDocumentProperties">
+      <input message="tns:SetDocumentPropertiesIn" />
+      <output message="tns:SetDocumentPropertiesOut" />
+      <fault name="ServerFault" message="tns:ServerFault" />
+    </operation>
+    <operation name="LoadCustomFile">
+      <input message="tns:LoadCustomFileIn" />
+      <output message="tns:LoadCustomFileOut" />
+      <fault name="ServerFault" message="tns:ServerFault" />
+    </operation>
+    <operation name="SaveCustomFile">
+      <input message="tns:SaveCustomFileIn" />
+      <output message="tns:SaveCustomFileOut" />
+      <fault name="ServerFault" message="tns:ServerFault" />
+    </operation>
+    <operation name="RemoveCustomFile">
+      <input message="tns:RemoveCustomFileIn" />
+      <output message="tns:RemoveCustomFileOut" />
+      <fault name="ServerFault" message="tns:ServerFault" />
+    </operation>
+    <operation name="GetCustomFileNames">
+      <input message="tns:GetCustomFileNamesIn" />
+      <output message="tns:GetCustomFileNamesOut" />
+      <fault name="ServerFault" message="tns:ServerFault" />
+    </operation>
+    <operation name="LoadAttachment">
+      <input message="tns:LoadAttachmentIn" />
+      <output message="tns:LoadAttachmentOut" />
+      <fault name="ServerFault" message="tns:ServerFault" />
+    </operation>
+    <operation name="SaveAttachment">
+      <input message="tns:SaveAttachmentIn" />
+      <output message="tns:SaveAttachmentOut" />
+      <fault name="ServerFault" message="tns:ServerFault" />
+    </operation>
+    <operation name="RemoveAttachment">
+      <input message="tns:RemoveAttachmentIn" />
+      <output message="tns:RemoveAttachmentOut" />
+      <fault name="ServerFault" message="tns:ServerFault" />
+    </operation>
+    <operation name="GetAttachmentNames">
+      <input message="tns:GetAttachmentNamesIn" />
+      <output message="tns:GetAttachmentNamesOut" />
+      <fault name="ServerFault" message="tns:ServerFault" />
+    </operation>
+    <operation name="WriteToLog">
+      <input message="tns:WriteToLogIn" />
+      <output message="tns:WriteToLogOut" />
+      <fault name="ServerFault" message="tns:ServerFault" />
+    </operation>
+    <operation name="GetAvailableTasks">
+      <input message="tns:GetAvailableTasksIn" />
+      <output message="tns:GetAvailableTasksOut" />
+      <fault name="ServerFault" message="tns:ServerFault" />
+    </operation>
+    <operation name="GetAvailableTasksByStageId">
+      <input message="tns:GetAvailableTasksByStageIdIn" />
+      <output message="tns:GetAvailableTasksByStageIdOut" />
+      <fault name="ServerFault" message="tns:ServerFault" />
+    </operation>
+    <operation name="GetTaskInfo">
+      <input message="tns:GetTaskInfoIn" />
+      <output message="tns:GetTaskInfoOut" />
+      <fault name="ServerFault" message="tns:ServerFault" />
+    </operation>
+    <operation name="CreateTask">
+      <input message="tns:CreateTaskIn" />
+      <output message="tns:CreateTaskOut" />
+      <fault name="ServerFault" message="tns:ServerFault" />
+    </operation>
+    <operation name="OpenTask">
+      <input message="tns:OpenTaskIn" />
+      <output message="tns:OpenTaskOut" />
+      <fault name="ServerFault" message="tns:ServerFault" />
+    </operation>
+    <operation name="GetTask">
+      <input message="tns:GetTaskIn" />
+      <output message="tns:GetTaskOut" />
+      <fault name="ServerFault" message="tns:ServerFault" />
+    </operation>
+    <operation name="GetTaskByStageId">
+      <input message="tns:GetTaskByStageIdIn" />
+      <output message="tns:GetTaskByStageIdOut" />
+      <fault name="ServerFault" message="tns:ServerFault" />
+    </operation>
+    <operation name="GetCurrentTask">
+      <input message="tns:GetCurrentTaskIn" />
+      <output message="tns:GetCurrentTaskOut" />
+      <fault name="ServerFault" message="tns:ServerFault" />
+    </operation>
+    <operation name="GetTaskDocuments">
+      <input message="tns:GetTaskDocumentsIn" />
+      <output message="tns:GetTaskDocumentsOut" />
+      <fault name="ServerFault" message="tns:ServerFault" />
+    </operation>
+    <operation name="CloseTask">
+      <input message="tns:CloseTaskIn" />
+      <output message="tns:CloseTaskOut" />
+      <fault name="ServerFault" message="tns:ServerFault" />
+    </operation>
+    <operation name="CancelTask">
+      <input message="tns:CancelTaskIn" />
+      <output message="tns:CancelTaskOut" />
+      <fault name="ServerFault" message="tns:ServerFault" />
+    </operation>
+    <operation name="PostponeTask">
+      <input message="tns:PostponeTaskIn" />
+      <output message="tns:PostponeTaskOut" />
+      <fault name="ServerFault" message="tns:ServerFault" />
+    </operation>
+    <operation name="GetPostponedTasks">
+      <input message="tns:GetPostponedTasksIn" />
+      <output message="tns:GetPostponedTasksOut" />
+      <fault name="ServerFault" message="tns:ServerFault" />
+    </operation>
+    <operation name="SendTaskToException">
+      <input message="tns:SendTaskToExceptionIn" />
+      <output message="tns:SendTaskToExceptionOut" />
+      <fault name="ServerFault" message="tns:ServerFault" />
+    </operation>
+    <operation name="SendTask">
+      <input message="tns:SendTaskIn" />
+      <output message="tns:SendTaskOut" />
+      <fault name="ServerFault" message="tns:ServerFault" />
+    </operation>
+    <operation name="GetNewTicket">
+      <input message="tns:GetNewTicketIn" />
+      <output message="tns:GetNewTicketOut" />
+      <fault name="ServerFault" message="tns:ServerFault" />
+    </operation>
+    <operation name="UpdateTicket">
+      <input message="tns:UpdateTicketIn" />
+      <output message="tns:UpdateTicketOut" />
+      <fault name="ServerFault" message="tns:ServerFault" />
+    </operation>
+    <operation name="ReleaseTicket">
+      <input message="tns:ReleaseTicketIn" />
+      <output message="tns:ReleaseTicketOut" />
+      <fault name="ServerFault" message="tns:ServerFault" />
+    </operation>
+    <operation name="HasRightsForBatchType">
+      <input message="tns:HasRightsForBatchTypeIn" />
+      <output message="tns:HasRightsForBatchTypeOut" />
+      <fault name="ServerFault" message="tns:ServerFault" />
+    </operation>
+    <operation name="GetSettingValue">
+      <input message="tns:GetSettingValueIn" />
+      <output message="tns:GetSettingValueOut" />
+      <fault name="ServerFault" message="tns:ServerFault" />
+    </operation>
+    <operation name="SetSettingValue">
+      <input message="tns:SetSettingValueIn" />
+      <output message="tns:SetSettingValueOut" />
+      <fault name="ServerFault" message="tns:ServerFault" />
+    </operation>
+    <operation name="FindUser">
+      <input message="tns:FindUserIn" />
+      <output message="tns:FindUserOut" />
+      <fault name="ServerFault" message="tns:ServerFault" />
+    </operation>
+    <operation name="AddUserIfNotExist">
+      <input message="tns:AddUserIfNotExistIn" />
+      <output message="tns:AddUserIfNotExistOut" />
+      <fault name="ServerFault" message="tns:ServerFault" />
+    </operation>
+    <operation name="GetUser">
+      <input message="tns:GetUserIn" />
+      <output message="tns:GetUserOut" />
+      <fault name="ServerFault" message="tns:ServerFault" />
+    </operation>
+    <operation name="GetUsers">
+      <input message="tns:GetUsersIn" />
+      <output message="tns:GetUsersOut" />
+      <fault name="ServerFault" message="tns:ServerFault" />
+    </operation>
+    <operation name="GetAvailableUsers">
+      <input message="tns:GetAvailableUsersIn" />
+      <output message="tns:GetAvailableUsersOut" />
+      <fault name="ServerFault" message="tns:ServerFault" />
+    </operation>
+    <operation name="CreateRequest">
+      <input message="tns:CreateRequestIn" />
+      <output message="tns:CreateRequestOut" />
+      <fault name="ServerFault" message="tns:ServerFault" />
+    </operation>
+    <operation name="DeleteRequest">
+      <input message="tns:DeleteRequestIn" />
+      <output message="tns:DeleteRequestOut" />
+      <fault name="ServerFault" message="tns:ServerFault" />
+    </operation>
+    <operation name="GetRequestStatus">
+      <input message="tns:GetRequestStatusIn" />
+      <output message="tns:GetRequestStatusOut" />
+      <fault name="ServerFault" message="tns:ServerFault" />
+    </operation>
+    <operation name="SetRequestStatus">
+      <input message="tns:SetRequestStatusIn" />
+      <output message="tns:SetRequestStatusOut" />
+      <fault name="ServerFault" message="tns:ServerFault" />
+    </operation>
+    <operation name="GetRequests">
+      <input message="tns:GetRequestsIn" />
+      <output message="tns:GetRequestsOut" />
+      <fault name="ServerFault" message="tns:ServerFault" />
+    </operation>
+    <operation name="GetAvailableQueues">
+      <input message="tns:GetAvailableQueuesIn" />
+      <output message="tns:GetAvailableQueuesOut" />
+      <fault name="ServerFault" message="tns:ServerFault" />
+    </operation>
+    <operation name="GetUserStatistics">
+      <input message="tns:GetUserStatisticsIn" />
+      <output message="tns:GetUserStatisticsOut" />
+      <fault name="ServerFault" message="tns:ServerFault" />
+    </operation>
+    <operation name="GetRoles">
+      <input message="tns:GetRolesIn" />
+      <output message="tns:GetRolesOut" />
+      <fault name="ServerFault" message="tns:ServerFault" />
+    </operation>
+    <operation name="GetUserRoles">
+      <input message="tns:GetUserRolesIn" />
+      <output message="tns:GetUserRolesOut" />
+      <fault name="ServerFault" message="tns:ServerFault" />
+    </operation>
+    <operation name="SetTaskPriority">
+      <input message="tns:SetTaskPriorityIn" />
+      <output message="tns:SetTaskPriorityOut" />
+      <fault name="ServerFault" message="tns:ServerFault" />
+    </operation>
+    <operation name="SetDocumentPriority">
+      <input message="tns:SetDocumentPriorityIn" />
+      <output message="tns:SetDocumentPriorityOut" />
+      <fault name="ServerFault" message="tns:ServerFault" />
+    </operation>
+    <operation name="GetCurrentUserIdentity">
+      <input message="tns:GetCurrentUserIdentityIn" />
+      <output message="tns:GetCurrentUserIdentityOut" />
+      <fault name="ServerFault" message="tns:ServerFault" />
+    </operation>
+  </portType>
+  <binding name="FlexiCaptureWebServiceSoap" type="tns:FlexiCaptureWebServiceSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <operation name="OpenSession">
+      <soap:operation soapAction="#OpenSession" style="document" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+      <fault name="ServerFault">
+        <soap:fault use="literal" name="ServerFault" namespace="" />
+      </fault>
+    </operation>
+    <operation name="GetSessionInfo">
+      <soap:operation soapAction="#GetSessionInfo" style="document" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+      <fault name="ServerFault">
+        <soap:fault use="literal" name="ServerFault" namespace="" />
+      </fault>
+    </operation>
+    <operation name="GetProjects">
+      <soap:operation soapAction="#GetProjects" style="document" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+      <fault name="ServerFault">
+        <soap:fault use="literal" name="ServerFault" namespace="" />
+      </fault>
+    </operation>
+    <operation name="GetProjectsForUser">
+      <soap:operation soapAction="#GetProjectsForUser" style="document" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+      <fault name="ServerFault">
+        <soap:fault use="literal" name="ServerFault" namespace="" />
+      </fault>
+    </operation>
+    <operation name="GetProcessingStages">
+      <soap:operation soapAction="#GetProcessingStages" style="document" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+      <fault name="ServerFault">
+        <soap:fault use="literal" name="ServerFault" namespace="" />
+      </fault>
+    </operation>
+    <operation name="GetTemplates">
+      <soap:operation soapAction="#GetTemplates" style="document" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+      <fault name="ServerFault">
+        <soap:fault use="literal" name="ServerFault" namespace="" />
+      </fault>
+    </operation>
+    <operation name="GetBatchTypeTemplates">
+      <soap:operation soapAction="#GetBatchTypeTemplates" style="document" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+      <fault name="ServerFault">
+        <soap:fault use="literal" name="ServerFault" namespace="" />
+      </fault>
+    </operation>
+    <operation name="CloseSession">
+      <soap:operation soapAction="#CloseSession" style="document" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+      <fault name="ServerFault">
+        <soap:fault use="literal" name="ServerFault" namespace="" />
+      </fault>
+    </operation>
+    <operation name="OpenProject">
+      <soap:operation soapAction="#OpenProject" style="document" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+      <fault name="ServerFault">
+        <soap:fault use="literal" name="ServerFault" namespace="" />
+      </fault>
+    </operation>
+    <operation name="CloseProject">
+      <soap:operation soapAction="#CloseProject" style="document" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+      <fault name="ServerFault">
+        <soap:fault use="literal" name="ServerFault" namespace="" />
+      </fault>
+    </operation>
+    <operation name="GetBatchTypes">
+      <soap:operation soapAction="#GetBatchTypes" style="document" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+      <fault name="ServerFault">
+        <soap:fault use="literal" name="ServerFault" namespace="" />
+      </fault>
+    </operation>
+    <operation name="GetAllowedBatchTypes">
+      <soap:operation soapAction="#GetAllowedBatchTypes" style="document" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+      <fault name="ServerFault">
+        <soap:fault use="literal" name="ServerFault" namespace="" />
+      </fault>
+    </operation>
+    <operation name="AddNewBatch">
+      <soap:operation soapAction="#AddNewBatch" style="document" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+      <fault name="ServerFault">
+        <soap:fault use="literal" name="ServerFault" namespace="" />
+      </fault>
+    </operation>
+    <operation name="DeleteBatch">
+      <soap:operation soapAction="#DeleteBatch" style="document" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+      <fault name="ServerFault">
+        <soap:fault use="literal" name="ServerFault" namespace="" />
+      </fault>
+    </operation>
+    <operation name="AddNewImage">
+      <soap:operation soapAction="#AddNewImage" style="document" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+      <fault name="ServerFault">
+        <soap:fault use="literal" name="ServerFault" namespace="" />
+      </fault>
+    </operation>
+    <operation name="GetBatchIdsRange">
+      <soap:operation soapAction="#GetBatchIdsRange" style="document" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+      <fault name="ServerFault">
+        <soap:fault use="literal" name="ServerFault" namespace="" />
+      </fault>
+    </operation>
+    <operation name="AddNewDocument">
+      <soap:operation soapAction="#AddNewDocument" style="document" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+      <fault name="ServerFault">
+        <soap:fault use="literal" name="ServerFault" namespace="" />
+      </fault>
+    </operation>
+    <operation name="AddNewPage">
+      <soap:operation soapAction="#AddNewPage" style="document" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+      <fault name="ServerFault">
+        <soap:fault use="literal" name="ServerFault" namespace="" />
+      </fault>
+    </operation>
+    <operation name="MoveBatchItem">
+      <soap:operation soapAction="#MoveBatchItem" style="document" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+      <fault name="ServerFault">
+        <soap:fault use="literal" name="ServerFault" namespace="" />
+      </fault>
+    </operation>
+    <operation name="ProcessBatch">
+      <soap:operation soapAction="#ProcessBatch" style="document" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+      <fault name="ServerFault">
+        <soap:fault use="literal" name="ServerFault" namespace="" />
+      </fault>
+    </operation>
+    <operation name="GetBatchPercentCompleted">
+      <soap:operation soapAction="#GetBatchPercentCompleted" style="document" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+      <fault name="ServerFault">
+        <soap:fault use="literal" name="ServerFault" namespace="" />
+      </fault>
+    </operation>
+    <operation name="GetDocuments">
+      <soap:operation soapAction="#GetDocuments" style="document" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+      <fault name="ServerFault">
+        <soap:fault use="literal" name="ServerFault" namespace="" />
+      </fault>
+    </operation>
+    <operation name="GetDocumentResultsList">
+      <soap:operation soapAction="#GetDocumentResultsList" style="document" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+      <fault name="ServerFault">
+        <soap:fault use="literal" name="ServerFault" namespace="" />
+      </fault>
+    </operation>
+    <operation name="LoadDocumentResult">
+      <soap:operation soapAction="#LoadDocumentResult" style="document" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+      <fault name="ServerFault">
+        <soap:fault use="literal" name="ServerFault" namespace="" />
+      </fault>
+    </operation>
+    <operation name="IsSessionExists">
+      <soap:operation soapAction="#IsSessionExists" style="document" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+      <fault name="ServerFault">
+        <soap:fault use="literal" name="ServerFault" namespace="" />
+      </fault>
+    </operation>
+    <operation name="GetBatchType">
+      <soap:operation soapAction="#GetBatchType" style="document" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+      <fault name="ServerFault">
+        <soap:fault use="literal" name="ServerFault" namespace="" />
+      </fault>
+    </operation>
+    <operation name="GetBatches">
+      <soap:operation soapAction="#GetBatches" style="document" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+      <fault name="ServerFault">
+        <soap:fault use="literal" name="ServerFault" namespace="" />
+      </fault>
+    </operation>
+    <operation name="GetBatch">
+      <soap:operation soapAction="#GetBatch" style="document" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+      <fault name="ServerFault">
+        <soap:fault use="literal" name="ServerFault" namespace="" />
+      </fault>
+    </operation>
+    <operation name="UpdateBatch">
+      <soap:operation soapAction="#UpdateBatch" style="document" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+      <fault name="ServerFault">
+        <soap:fault use="literal" name="ServerFault" namespace="" />
+      </fault>
+    </operation>
+    <operation name="OpenBatch">
+      <soap:operation soapAction="#OpenBatch" style="document" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+      <fault name="ServerFault">
+        <soap:fault use="literal" name="ServerFault" namespace="" />
+      </fault>
+    </operation>
+    <operation name="CloseBatch">
+      <soap:operation soapAction="#CloseBatch" style="document" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+      <fault name="ServerFault">
+        <soap:fault use="literal" name="ServerFault" namespace="" />
+      </fault>
+    </operation>
+    <operation name="GetDocument">
+      <soap:operation soapAction="#GetDocument" style="document" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+      <fault name="ServerFault">
+        <soap:fault use="literal" name="ServerFault" namespace="" />
+      </fault>
+    </operation>
+    <operation name="DeletePage">
+      <soap:operation soapAction="#DeletePage" style="document" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+      <fault name="ServerFault">
+        <soap:fault use="literal" name="ServerFault" namespace="" />
+      </fault>
+    </operation>
+    <operation name="DeleteDocument">
+      <soap:operation soapAction="#DeleteDocument" style="document" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+      <fault name="ServerFault">
+        <soap:fault use="literal" name="ServerFault" namespace="" />
+      </fault>
+    </operation>
+    <operation name="ReplacePageImage">
+      <soap:operation soapAction="#ReplacePageImage" style="document" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+      <fault name="ServerFault">
+        <soap:fault use="literal" name="ServerFault" namespace="" />
+      </fault>
+    </operation>
+    <operation name="SetDocumentProperties">
+      <soap:operation soapAction="#SetDocumentProperties" style="document" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+      <fault name="ServerFault">
+        <soap:fault use="literal" name="ServerFault" namespace="" />
+      </fault>
+    </operation>
+    <operation name="LoadCustomFile">
+      <soap:operation soapAction="#LoadCustomFile" style="document" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+      <fault name="ServerFault">
+        <soap:fault use="literal" name="ServerFault" namespace="" />
+      </fault>
+    </operation>
+    <operation name="SaveCustomFile">
+      <soap:operation soapAction="#SaveCustomFile" style="document" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+      <fault name="ServerFault">
+        <soap:fault use="literal" name="ServerFault" namespace="" />
+      </fault>
+    </operation>
+    <operation name="RemoveCustomFile">
+      <soap:operation soapAction="#RemoveCustomFile" style="document" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+      <fault name="ServerFault">
+        <soap:fault use="literal" name="ServerFault" namespace="" />
+      </fault>
+    </operation>
+    <operation name="GetCustomFileNames">
+      <soap:operation soapAction="#GetCustomFileNames" style="document" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+      <fault name="ServerFault">
+        <soap:fault use="literal" name="ServerFault" namespace="" />
+      </fault>
+    </operation>
+    <operation name="LoadAttachment">
+      <soap:operation soapAction="#LoadAttachment" style="document" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+      <fault name="ServerFault">
+        <soap:fault use="literal" name="ServerFault" namespace="" />
+      </fault>
+    </operation>
+    <operation name="SaveAttachment">
+      <soap:operation soapAction="#SaveAttachment" style="document" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+      <fault name="ServerFault">
+        <soap:fault use="literal" name="ServerFault" namespace="" />
+      </fault>
+    </operation>
+    <operation name="RemoveAttachment">
+      <soap:operation soapAction="#RemoveAttachment" style="document" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+      <fault name="ServerFault">
+        <soap:fault use="literal" name="ServerFault" namespace="" />
+      </fault>
+    </operation>
+    <operation name="GetAttachmentNames">
+      <soap:operation soapAction="#GetAttachmentNames" style="document" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+      <fault name="ServerFault">
+        <soap:fault use="literal" name="ServerFault" namespace="" />
+      </fault>
+    </operation>
+    <operation name="WriteToLog">
+      <soap:operation soapAction="#WriteToLog" style="document" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+      <fault name="ServerFault">
+        <soap:fault use="literal" name="ServerFault" namespace="" />
+      </fault>
+    </operation>
+    <operation name="GetAvailableTasks">
+      <soap:operation soapAction="#GetAvailableTasks" style="document" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+      <fault name="ServerFault">
+        <soap:fault use="literal" name="ServerFault" namespace="" />
+      </fault>
+    </operation>
+    <operation name="GetAvailableTasksByStageId">
+      <soap:operation soapAction="#GetAvailableTasksByStageId" style="document" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+      <fault name="ServerFault">
+        <soap:fault use="literal" name="ServerFault" namespace="" />
+      </fault>
+    </operation>
+    <operation name="GetTaskInfo">
+      <soap:operation soapAction="#GetTaskInfo" style="document" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+      <fault name="ServerFault">
+        <soap:fault use="literal" name="ServerFault" namespace="" />
+      </fault>
+    </operation>
+    <operation name="CreateTask">
+      <soap:operation soapAction="#CreateTask" style="document" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+      <fault name="ServerFault">
+        <soap:fault use="literal" name="ServerFault" namespace="" />
+      </fault>
+    </operation>
+    <operation name="OpenTask">
+      <soap:operation soapAction="#OpenTask" style="document" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+      <fault name="ServerFault">
+        <soap:fault use="literal" name="ServerFault" namespace="" />
+      </fault>
+    </operation>
+    <operation name="GetTask">
+      <soap:operation soapAction="#GetTask" style="document" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+      <fault name="ServerFault">
+        <soap:fault use="literal" name="ServerFault" namespace="" />
+      </fault>
+    </operation>
+    <operation name="GetTaskByStageId">
+      <soap:operation soapAction="#GetTaskByStageId" style="document" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+      <fault name="ServerFault">
+        <soap:fault use="literal" name="ServerFault" namespace="" />
+      </fault>
+    </operation>
+    <operation name="GetCurrentTask">
+      <soap:operation soapAction="#GetCurrentTask" style="document" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+      <fault name="ServerFault">
+        <soap:fault use="literal" name="ServerFault" namespace="" />
+      </fault>
+    </operation>
+    <operation name="GetTaskDocuments">
+      <soap:operation soapAction="#GetTaskDocuments" style="document" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+      <fault name="ServerFault">
+        <soap:fault use="literal" name="ServerFault" namespace="" />
+      </fault>
+    </operation>
+    <operation name="CloseTask">
+      <soap:operation soapAction="#CloseTask" style="document" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+      <fault name="ServerFault">
+        <soap:fault use="literal" name="ServerFault" namespace="" />
+      </fault>
+    </operation>
+    <operation name="CancelTask">
+      <soap:operation soapAction="#CancelTask" style="document" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+      <fault name="ServerFault">
+        <soap:fault use="literal" name="ServerFault" namespace="" />
+      </fault>
+    </operation>
+    <operation name="PostponeTask">
+      <soap:operation soapAction="#PostponeTask" style="document" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+      <fault name="ServerFault">
+        <soap:fault use="literal" name="ServerFault" namespace="" />
+      </fault>
+    </operation>
+    <operation name="GetPostponedTasks">
+      <soap:operation soapAction="#GetPostponedTasks" style="document" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+      <fault name="ServerFault">
+        <soap:fault use="literal" name="ServerFault" namespace="" />
+      </fault>
+    </operation>
+    <operation name="SendTaskToException">
+      <soap:operation soapAction="#SendTaskToException" style="document" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+      <fault name="ServerFault">
+        <soap:fault use="literal" name="ServerFault" namespace="" />
+      </fault>
+    </operation>
+    <operation name="SendTask">
+      <soap:operation soapAction="#SendTask" style="document" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+      <fault name="ServerFault">
+        <soap:fault use="literal" name="ServerFault" namespace="" />
+      </fault>
+    </operation>
+    <operation name="GetNewTicket">
+      <soap:operation soapAction="#GetNewTicket" style="document" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+      <fault name="ServerFault">
+        <soap:fault use="literal" name="ServerFault" namespace="" />
+      </fault>
+    </operation>
+    <operation name="UpdateTicket">
+      <soap:operation soapAction="#UpdateTicket" style="document" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+      <fault name="ServerFault">
+        <soap:fault use="literal" name="ServerFault" namespace="" />
+      </fault>
+    </operation>
+    <operation name="ReleaseTicket">
+      <soap:operation soapAction="#ReleaseTicket" style="document" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+      <fault name="ServerFault">
+        <soap:fault use="literal" name="ServerFault" namespace="" />
+      </fault>
+    </operation>
+    <operation name="HasRightsForBatchType">
+      <soap:operation soapAction="#HasRightsForBatchType" style="document" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+      <fault name="ServerFault">
+        <soap:fault use="literal" name="ServerFault" namespace="" />
+      </fault>
+    </operation>
+    <operation name="GetSettingValue">
+      <soap:operation soapAction="#GetSettingValue" style="document" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+      <fault name="ServerFault">
+        <soap:fault use="literal" name="ServerFault" namespace="" />
+      </fault>
+    </operation>
+    <operation name="SetSettingValue">
+      <soap:operation soapAction="#SetSettingValue" style="document" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+      <fault name="ServerFault">
+        <soap:fault use="literal" name="ServerFault" namespace="" />
+      </fault>
+    </operation>
+    <operation name="FindUser">
+      <soap:operation soapAction="#FindUser" style="document" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+      <fault name="ServerFault">
+        <soap:fault use="literal" name="ServerFault" namespace="" />
+      </fault>
+    </operation>
+    <operation name="AddUserIfNotExist">
+      <soap:operation soapAction="#AddUserIfNotExist" style="document" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+      <fault name="ServerFault">
+        <soap:fault use="literal" name="ServerFault" namespace="" />
+      </fault>
+    </operation>
+    <operation name="GetUser">
+      <soap:operation soapAction="#GetUser" style="document" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+      <fault name="ServerFault">
+        <soap:fault use="literal" name="ServerFault" namespace="" />
+      </fault>
+    </operation>
+    <operation name="GetUsers">
+      <soap:operation soapAction="#GetUsers" style="document" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+      <fault name="ServerFault">
+        <soap:fault use="literal" name="ServerFault" namespace="" />
+      </fault>
+    </operation>
+    <operation name="GetAvailableUsers">
+      <soap:operation soapAction="#GetAvailableUsers" style="document" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+      <fault name="ServerFault">
+        <soap:fault use="literal" name="ServerFault" namespace="" />
+      </fault>
+    </operation>
+    <operation name="CreateRequest">
+      <soap:operation soapAction="#CreateRequest" style="document" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+      <fault name="ServerFault">
+        <soap:fault use="literal" name="ServerFault" namespace="" />
+      </fault>
+    </operation>
+    <operation name="DeleteRequest">
+      <soap:operation soapAction="#DeleteRequest" style="document" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+      <fault name="ServerFault">
+        <soap:fault use="literal" name="ServerFault" namespace="" />
+      </fault>
+    </operation>
+    <operation name="GetRequestStatus">
+      <soap:operation soapAction="#GetRequestStatus" style="document" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+      <fault name="ServerFault">
+        <soap:fault use="literal" name="ServerFault" namespace="" />
+      </fault>
+    </operation>
+    <operation name="SetRequestStatus">
+      <soap:operation soapAction="#SetRequestStatus" style="document" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+      <fault name="ServerFault">
+        <soap:fault use="literal" name="ServerFault" namespace="" />
+      </fault>
+    </operation>
+    <operation name="GetRequests">
+      <soap:operation soapAction="#GetRequests" style="document" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+      <fault name="ServerFault">
+        <soap:fault use="literal" name="ServerFault" namespace="" />
+      </fault>
+    </operation>
+    <operation name="GetAvailableQueues">
+      <soap:operation soapAction="#GetAvailableQueues" style="document" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+      <fault name="ServerFault">
+        <soap:fault use="literal" name="ServerFault" namespace="" />
+      </fault>
+    </operation>
+    <operation name="GetUserStatistics">
+      <soap:operation soapAction="#GetUserStatistics" style="document" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+      <fault name="ServerFault">
+        <soap:fault use="literal" name="ServerFault" namespace="" />
+      </fault>
+    </operation>
+    <operation name="GetRoles">
+      <soap:operation soapAction="#GetRoles" style="document" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+      <fault name="ServerFault">
+        <soap:fault use="literal" name="ServerFault" namespace="" />
+      </fault>
+    </operation>
+    <operation name="GetUserRoles">
+      <soap:operation soapAction="#GetUserRoles" style="document" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+      <fault name="ServerFault">
+        <soap:fault use="literal" name="ServerFault" namespace="" />
+      </fault>
+    </operation>
+    <operation name="SetTaskPriority">
+      <soap:operation soapAction="#SetTaskPriority" style="document" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+      <fault name="ServerFault">
+        <soap:fault use="literal" name="ServerFault" namespace="" />
+      </fault>
+    </operation>
+    <operation name="SetDocumentPriority">
+      <soap:operation soapAction="#SetDocumentPriority" style="document" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+      <fault name="ServerFault">
+        <soap:fault use="literal" name="ServerFault" namespace="" />
+      </fault>
+    </operation>
+    <operation name="GetCurrentUserIdentity">
+      <soap:operation soapAction="#GetCurrentUserIdentity" style="document" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+      <fault name="ServerFault">
+        <soap:fault use="literal" name="ServerFault" namespace="" />
+      </fault>
+    </operation>
+  </binding>
+  <service name="FlexiCaptureWebServiceApiVersion3">
+    <port name="FlexiCaptureWebServiceSoap" binding="tns:FlexiCaptureWebServiceSoap">
+      <soap:address location="http://localhost/FlexiCapture12/Server/WebServices.dll?Handler=Version3" />
+    </port>
+  </service>
+</definitions>
