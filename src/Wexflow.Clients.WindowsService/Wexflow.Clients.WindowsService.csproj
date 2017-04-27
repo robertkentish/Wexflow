@@ -39,6 +39,24 @@
   <PropertyGroup>
     <ApplicationIcon>Wexflow.ico</ApplicationIcon>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|AnyCPU'">
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.configuration" />
@@ -67,6 +85,10 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Wexflow.Tasks.ABBYYUpload\Wexflow.Tasks.ABBYYUpload.csproj">
+      <Project>{5056ccde-6027-41ba-8f5a-d3c90d8520b1}</Project>
+      <Name>Wexflow.Tasks.ABBYYUpload</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Wexflow.Tasks.Movedir\Wexflow.Tasks.Movedir.csproj">
       <Project>{BBCA7CF8-635A-4ABE-B3C5-81C584DB0D46}</Project>
       <Name>Wexflow.Tasks.Movedir</Name>

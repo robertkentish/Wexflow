@@ -1,5 +1,7 @@
 ﻿using System;
+using System.IO;
 using System.ServiceModel;
+using Wexflow.Core;
 using Wexflow.Core.Service.Contracts;
 
 namespace Wexflow.Clients.WindowsService
@@ -30,5 +32,11 @@ namespace Wexflow.Clients.WindowsService
 
         [OperationContract]
         WorkflowInfo GetWorkflowInstance(string id);
+
+        [OperationContract]
+        void AddFilesToWorkflowInstance(string id, Stream file);
+
+        [OperationContract]
+        void ResumeWorkflowFromTask(string id);
     }
 }

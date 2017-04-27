@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Tasks>
+  <!--
+    FilesMover is a sequential task that moves a collection of files to a destination folder.
+    
+    The files moved will be loaded by this task so that other
+    tasks can select them through the selectFiles option.
+  -->
+  <Task id="$int" name="ABBYYUpload" description="$string" enabled="true|false">
+    <!-- 
+      The files loaded by the task having as id $taskId will be
+      moved to the destination folder.
+    -->
+    <Setting name="selectFiles" value="$taskId" />
+    <Setting name="selectFiles" value="$taskId" />
+    <!-- You can add as many selecteFiles as you want.-->
+    <!-- The destination folder. For example: C:\MyFolder\-->
+    <Setting name="serverAddress" value="$string" />
+    <Setting name="username" value="$string" />
+    <Setting name="password" value="$string" />
+    <Setting name="project" value="$string" />
+    <Setting name="batchType" value="$string" />
+    <Setting name="batchName" value="$string" />
+
+  </Task>
+</Tasks>

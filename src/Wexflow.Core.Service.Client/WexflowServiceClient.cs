@@ -2,6 +2,7 @@
 using System.Net;
 using Newtonsoft.Json;
 using System;
+using System.IO;
 
 namespace Wexflow.Core.Service.Client
 {
@@ -77,6 +78,21 @@ namespace Wexflow.Core.Service.Client
             var response = webClient.DownloadString(uri);
             var workflow = JsonConvert.DeserializeObject<WorkflowInfo>(response);
             return workflow;
+        }
+
+        public void AddFilesToWorkflowInstance(Guid id, string filename)
+        {
+            string uri = Uri + "/workflowinstance/" + id + "/files";
+            var webClient = new WebClient();
+
+            using (Stream stream = File.OpenRead(filename))
+            {
+                var data = new MemoryStream();
+                stream.CopyTo(data);
+                var response = webClient.UploadData(uri, data.GetBuffer());
+                // var workflow = JsonConvert.DeserializeObject<WorkflowInfo>(response);
+            }
+
         }
     }
 }

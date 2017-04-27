@@ -30,6 +30,7 @@ namespace Wexflow.Core
         public bool IsEnabled { get; private set; }
         public bool IsRunning { get; private set; }
         public bool IsPaused { get; private set; }
+        public bool IsWaiting { get; private set; }
         public Task[] Taks { get; private set; }
         public Dictionary<int, List<FileInf>> FilesPerTask { get; private set; }
         public Dictionary<int, List<Entity>> EntitiesPerTask { get; private set; }
@@ -50,6 +51,7 @@ namespace Wexflow.Core
             IsEnabled = wf.IsEnabled;
             IsPaused = wf.IsPaused;
             IsRunning = wf.IsRunning;
+            IsWaiting = wf.IsWaiting;
             WorkflowFilePath = wf.WorkflowFilePath;
             WexflowTempFolder = wf.WexflowTempFolder;
             WorkflowTempFolder = wf.WorkflowTempFolder;
@@ -568,6 +570,14 @@ namespace Wexflow.Core
                 if (task.IsEnabled)
                 {
                     var status = task.Run();
+
+                    if (status.Status == Status.Waiting)
+                    {
+                        Logger.Info("Need to wait for external process to complete.");
+                        WaitForReturn();
+                    }
+
+
                     success &= status.Status == Status.Success;
                     warning |= status.Status == Status.Warning;
                     if (!atLeastOneSucceed && status.Status == Status.Success) atLeastOneSucceed = true;
@@ -883,9 +893,25 @@ namespace Wexflow.Core
             }
         }
 
+        public void WaitForReturn()
+        {
+            if (IsRunning)
+            {
+                try
+                {
+                    _thread.Suspend();
+                    IsWaiting = true;
+                }
+                catch (Exception e)
+                {
+                    Logger.ErrorFormat("An error occured while suspending the workflow : {0}", e, this);
+                }
+            }
+        }
+
         public void Resume()
         {
-            if (IsPaused)
+            if (IsPaused && !IsWaiting)
             {
                 try
                 {
@@ -893,7 +919,7 @@ namespace Wexflow.Core
                 }
                 catch (Exception e)
                 {
-                    Logger.ErrorFormat("An error occured while resuming the workflow : {0}", e, this);
+                    Logger.ErrorFormat("An error occured while resuming the workflow from a pause: {0}", e, this);
                 }
                 finally
                 {
@@ -901,6 +927,28 @@ namespace Wexflow.Core
                 }
             }
         }
+
+        /*
+        public void ResumeFromWait(TaskStatus status)
+        {
+            if (!IsPaused && IsWaiting)
+            {
+                try
+                {
+                    // ResumeTasks(IEnumerable < Node > nodes, IEnumerable < Task > tasks);
+                    _thread.Resume();
+                }
+                catch (Exception e)
+                {
+                    Logger.ErrorFormat("An error occured while resuming the workflow from a wait: {0}", e, this);
+                }
+                finally
+                {
+                    IsWaiting = false;
+                }
+            }
+        }
+        */
 
         void CreateTempFolder()
         { 

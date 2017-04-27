@@ -189,6 +189,20 @@ namespace Wexflow.Clients.Manager
             }
         }
 
+        private void buttonAddFiles_Click(object sender, EventArgs e)
+        {
+            var wfId = GetSlectedWorkflowId();
+            var instanceString = _runningWorkflows.FirstOrDefault(s => s.Split(':')[0] == wfId.ToString()).Split(':')[1].ToString();
+            var wfInstanceId = Guid.Parse(instanceString);
+            if (wfInstanceId != Guid.Empty)
+            {
+                _wexflowServiceClient.SuspendWorkflow(wfInstanceId);
+                _wexflowServiceClient.AddFilesToWorkflowInstance(wfInstanceId, @"C:\WexflowTesting\ScannedDockets.tif");
+                _wexflowServiceClient.ResumeWorkflow(wfInstanceId);
+                UpdateButtons(wfId, true);
+            }
+        }
+
         void dataGridViewWorkflows_SelectionChanged(object sender, EventArgs e)
         {
             var wfId = GetSlectedWorkflowId();
@@ -299,5 +313,7 @@ namespace Wexflow.Clients.Manager
             }
             e.Handled = true;
         }
+
+
     }
 }
